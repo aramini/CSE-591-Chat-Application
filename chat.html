@@ -40,6 +40,29 @@
      <ul class="list-group" id="list-participants" style="height:200px; overflow-y:scroll;" >
         <li class="list-group-item active">Participants</li>
     </ul>
+    <div class="panel-default">
+    <div class="panel-heading">Summary</div>
+    <div class="panel-body">
+     <div id="summarytext" class="well" style="height:100px; overflow-y:auto;"></div>
+    </div>
+	<div class="btn btn-primary" data-toggle="modal" data-target="#myModal">Edit</div>
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&close;</button>-->
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <textarea class="form-control" rows="8" id="summary"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-summary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
       <div class="panel-default">
 	<div class="panel-heading">Files</div>
         <div class="panel-body" style="height:200px;">
@@ -87,6 +110,20 @@
 	$('#reply-box').val('');
 	socket.emit('sendchat',message);
 	});
+         $('#reply-box').keypress(function(e) {
+                        if(e.keyCode == 13) {
+				$(this).blur();
+				$('#send').click();
+				return false;  
+                      }
+                });
+	$('#save-summary').click(function(){
+	
+	var editedsummary=$('#summary').val();
+	
+	$('#summarytext').text(editedsummary);
+});
+
 });
         
     </script>

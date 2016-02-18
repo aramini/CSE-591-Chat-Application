@@ -5,7 +5,9 @@ var path = require("path");
 var mongoose = require('mongoose');
 var Message = require('./models/messagemodel');
 
-mongoose.connect('mongodb://localhost:27017/TOLC-chat');
+mongoose.connect('mongodb://127.0.0.1:27017/TOLC-chat',function(err){
+  console.log(err);
+});
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));

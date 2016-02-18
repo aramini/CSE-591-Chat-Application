@@ -1,12 +1,13 @@
 {
-     "name": "multichat",
-     "description": "example chat application with socket.io",
-     "version": "0.0.1",
-     "dependencies": {
-        "express": "",
-        "socket.io": "",
-        "mongoose": "^3.8.36"
-     }
+  "name": "multichat",
+  "description": "example chat application with socket.io",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "",
+    "socket.io": "",
+    "mongoose": "^3.8.36"
+  },
+  "devDependencies": {
+    "mongoose": "~3.9.7"
+  }
 }
-
-
