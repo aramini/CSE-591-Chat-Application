@@ -30,6 +30,7 @@ io.on('connection', function(socket) {
         Message.find(function(err,data){
           if(err) console.log(err);
           else{
+            io.sockets.emit('clearchat');
             data.forEach(function(mes){
               io.sockets.emit('updatechat',mes.user,mes.text);
             });
