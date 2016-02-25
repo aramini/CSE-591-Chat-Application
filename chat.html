@@ -84,9 +84,9 @@
         socket.on('enteruser', function(username) {
             if (username != null) {
 
-<<<<<<< HEAD
+
          <script>
-        var socket=io.connect('http://localhost:3003');         
+        var socket=io.connect('http://localhost:3000');         
         socket.on('connect', function(){
                 // call the server-side function 'adduser' and send one parameter (value of prompt)
                 socket.emit('adduser', prompt("What's your name?"));
@@ -96,16 +96,11 @@
                 var l=localStorage.getItem("name");
                 var t=localStorage.getItem("time")
                 $("#detail").html('<b>'+"ExpertName:"+'</b>'+l+'&nbsp;'+'<b>'+"Timings:"+'</b>'+t+'</br>');
-                $('#list-participants').append('<li class="list-group-item">'+username +'</li>');
-		}
-=======
                 $('#list-participants').append('<li class="list-group-item">' + username + '</li>');
             }
         });
         socket.on('deleteuser', function(username) {
             $('li:contains(' + username + ')').remove();
-
->>>>>>> 1895278525eb4f0ffbf3805e86a677c6257cbff3
         });
         socket.on('updatechat', function(username, data) {
 
