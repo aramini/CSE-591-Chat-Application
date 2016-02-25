@@ -34,6 +34,7 @@
 	<td>Archana</td>
         <td>9 PM to 10 PM</td>
         <td><a class="btn btn-info" role="button" href="/chat" id="room1">Room 1 link</a></td>
+        <td>
     </tbody>
     <tbody>
 	<td>Kavitha</td>
@@ -54,7 +55,16 @@
    <script src="/socket.io/socket.io.js"></script>
 
 	 <script>
-	var socket=io.connect('http://localhost:3000');    	
+         
+        var name=$("#room1").closest("tbody").find("td:first").html();
+        var time=$("#room1").closest("tbody").find("td:eq(1)").html();
+        localStorage.setItem("name",name);
+        localStorage.setItem("time",time);
+        alert(time);
+     
+
+	var socket=io.connect('http://localhost:3003');
+      	
        </script>
 
   </body>

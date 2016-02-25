@@ -27,8 +27,9 @@
     <div class="row">
       <div class="col-xs-8">
       <form class="form-horizontal">
-      	
-	<div id="chat" class="well" style="height:500px; overflow-y:auto;"></div>
+        <h2>Details</h2>
+        <div id="detail" class="well" style="height:50px;"></div>     	
+ 	<div id="chat" class="well" style="height:500px; overflow-y:auto;"></div>
         <input type="text" class="form-control" id="reply-box" placeholder="Enter your text here"></input>
         <button class="btn btn-default pull-right"type="button" id="send">Send</button>
       </form>
@@ -83,14 +84,16 @@
      <script src="/socket.io/socket.io.js"></script>
 
          <script>
-        var socket=io.connect('http://localhost:3000');         
+        var socket=io.connect('http://localhost:3003');         
         socket.on('connect', function(){
                 // call the server-side function 'adduser' and send one parameter (value of prompt)
                 socket.emit('adduser', prompt("What's your name?"));
         });
          socket.on('enteruser', function (username) {
 		if(username!=null){
-
+                var l=localStorage.getItem("name");
+                var t=localStorage.getItem("time")
+                $("#detail").html('<b>'+"ExpertName:"+'</b>'+l+'&nbsp;'+'<b>'+"Timings:"+'</b>'+t+'</br>');
                 $('#list-participants').append('<li class="list-group-item">'+username +'</li>');
 		}
         });

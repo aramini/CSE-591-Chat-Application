@@ -1,0 +1,12 @@
+var mongoose = require('mongoose');
+
+var Schema = mongoose.Schema;
+
+var roomSchema = mongoose.Schema({
+        room : String,
+        summary : String
+});
+
+module.exports = mongoose.model('Room',roomSchema);
+~                                                                                                                                                                                             
+~                                                                  
