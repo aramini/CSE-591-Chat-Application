@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Room 1</title>
-
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
   </head>
   <body>
    <div class="container">
@@ -72,17 +70,21 @@
 	<div class="panel-footer">
 		<button class="btn btn-default" id="upload">Upload File</button>
         </div>
-      </div>
-     </div>
-    
-   </div>
-   </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-     <script src="/socket.io/socket.io.js"></script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+        var socket = io.connect('http://localhost:3000');
+        socket.on('connect', function() {
+            // call the server-side function 'adduser' and send one parameter (value of prompt)
+            socket.emit('adduser', prompt("What's your name?"));
+        });
+        socket.on('enteruser', function(username) {
+            if (username != null) {
 
+<<<<<<< HEAD
          <script>
         var socket=io.connect('http://localhost:3003');         
         socket.on('connect', function(){
@@ -96,42 +98,48 @@
                 $("#detail").html('<b>'+"ExpertName:"+'</b>'+l+'&nbsp;'+'<b>'+"Timings:"+'</b>'+t+'</br>');
                 $('#list-participants').append('<li class="list-group-item">'+username +'</li>');
 		}
+=======
+                $('#list-participants').append('<li class="list-group-item">' + username + '</li>');
+            }
         });
-	socket.on('deleteuser',function(username){
-  		$('li:contains('+username+')').remove();
-		
-});
-	socket.on('updatechat',function(username,data){
-                
-		$('#chat').append('<b>'+username+'</b>'+" "+data+"</br>");
-});
-	$(function(){
- 	$('#send').click(function(){
-        
-	var message=$('#reply-box').val();
-	
-	$('#reply-box').val('');
-	socket.emit('sendchat',message);
-	});
-         $('#reply-box').keypress(function(e) {
-                        if(e.keyCode == 13) {
-				$(this).blur();
-				$('#send').click();
-				return false;  
-                      }
-                });
-	$('#save-summary').click(function(){
-	
-	var editedsummary=$('#summary').val();
-	
-	$('#summarytext').text(editedsummary);
-});
+        socket.on('deleteuser', function(username) {
+            $('li:contains(' + username + ')').remove();
 
-});
-        
-    </script>
+>>>>>>> 1895278525eb4f0ffbf3805e86a677c6257cbff3
+        });
+        socket.on('updatechat', function(username, data) {
 
-  </body>
-`</html>
+            $('#chat').append('<b>' + username + '</b>' + " " + data + "</br>");
+        });
+        socket.on('clearchat', function() {
 
+            $('#chat').text("");
+        });
+        $(function() {
+            $('#send').click(function() {
 
+                var message = $('#reply-box').val();
+
+                $('#reply-box').val('');
+                socket.emit('sendchat', message);
+            });
+            $('#reply-box').keypress(function(e) {
+                if (e.keyCode == 13) {
+                    $(this).blur();
+                    $('#send').click();
+                    return false;
+                }
+            });
+            $('#save-summary').click(function() {
+
+                var editedsummary = $('#summary').val();
+
+                $('#summarytext').text(editedsummary);
+            });
+
+        });
+        </script>
+</body>
+`
+
+</html>
