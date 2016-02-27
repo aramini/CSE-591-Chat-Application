@@ -33,21 +33,25 @@
       <h1>Expert Chat Room</h1>
       <div class="row">
         <div class="col-xs-8">
-          <form class="form-horizontal">
-            <h2>Details</h2>
-<div id='trigger' class="btn btn-primary pull-right">Trigger</div>
-            <div id="detail" class="well" style="height:50px;">
 
-            </div>
+          <div class="panel" style="padding-top: 16px;">
+            <span class="glyphicon glyphicon-question-sign close" data-toggle="tooltip" title="<enter text here>"></span>
+            <div class="" id="detail"></div>
+            <button id='trigger' class="btn btn-primary">Trigger</button>
+          </div>
+
+          <form class="form-horizontal">
             <div id="chat" class="well" style="height:500px; overflow-y:auto;"></div>
             <input type="text" class="form-control" id="reply-box" placeholder="Enter your text here"></input>
             <button class="btn btn-default pull-right" type="button" id="send">Send</button>
           </form>
         </div>
         <div class="col-xs-4">
-          <ul class="list-group" id="list-teachers"></ul>
-        <li class="list-group-item active">Participants</li>
-        <ul class="list-group" id="list-participants" style="height:200px; overflow-y:scroll;"></ul>
+          <div class="list-group-item-heading btn-primary">Participants</div>
+          <div class="list-group" id="list-participants" style="height:200px; overflow-y:scroll;">
+
+        </div>
+
         <div class="well panel-default">
           <div class="panel-heading">Summary</div>
           <div class="panel-body">
@@ -65,109 +69,108 @@
       </div>
     </div>
   </div>
-</div>
 
-<!-- modal -->
-<div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&close;</button>-->
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <textarea class="form-control" rows="8" id="summary"></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-summary">Save changes</button>
+  <!-- modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&close;</button>-->
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control" rows="8" id="summary"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-summary">Save changes</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div id="slider" className="container">
-  <div id="commentsContent" class="panel">
-    Hello world
+  <div id="slider" className="container">
+    <div id="commentsContent" class="panel hidden"></div>
+
   </div>
-
-</div>
-<script src="scripts/react-draggable.min.js"></script>
-<script type="text/babel" src="scripts/example.js"></script>
-<script>
+  <script src="scripts/react-draggable.min.js"></script>
+  <script type="text/babel" src="scripts/example.js"></script>
+  <script>
 
     $("#trigger").click(function () {
-     $("#commentsContent").toggle();
-    console.log("hello");
+      $("#commentsContent").toggle();
+      console.log("hello");
     });
 
-</script>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io.connect('http://localhost:3000');
-  socket.on('connect', function () {
-    // call the server-side function 'adduser' and send one parameter (value of prompt)
-    socket.emit('adduser', prompt("What's your name?"));
-  });
-  socket.on('enteruser', function (username) {
-    console.log("am here");
-    console.log(username);
-    if (username != null) {
-      var l = localStorage.getItem("name");
-      var t = localStorage.getItem("time")
-      $("#detail").append('<b>ExpertName:</b>' + l + '&nbsp;<b>Timings:</b>' + t + '</br>');
-      //$('#list-participants').append('<li class="list-group-item">' + username + '</li>');
-      $("#list-participants").empty();
-      $.each(username, function (key, value) {
-        $('#list-participants').append('<li class="list-group-item">' + key + '</li>');
-      });
-    }
-  });
-  socket.on('deleteuser', function (username) {
-    $('li:contains(' + username + ')').remove();
-  });
-  socket.on('updatechat', function (username, data) {
-
-    $('#chat').append('<b>' + username + '</b> ' + data + "</br>");
-  });
-  socket.on('clearchat', function () {
-
-    $('#chat').text("");
-  });
-  socket.on('summary', function (data) {
-
-    $('#summarytext').text(data);
-  });
-  $(function () {
-    $('#send').click(function () {
-
-      var message = $('#reply-box').val();
-
-      $('#reply-box').val('');
-      socket.emit('sendchat', message);
+    $(document).ready(function () {
+      $('[data-toggle="tooltip"]').tooltip();
     });
-    $('#reply-box').keypress(function (e) {
-      if (e.keyCode == 13) {
-        $(this).blur();
-        $('#send').click();
-        return false;
+  </script>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('http://localhost:3000');
+    socket.on('connect', function () { // call the server-side function 'adduser' and send one parameter (value of prompt)
+      socket.emit('adduser', prompt("What's your name?"));
+    });
+    socket.on('enteruser', function (username) {
+      console.log("am here");
+      console.log(username);
+      if (username != null) {
+        var l = localStorage.getItem("name");
+        var t = localStorage.getItem("time")
+        $("#detail").append('<b>ExpertName:</b>' + l + '&nbsp;<b>Timings:</b>' + t);
+        //$('#list-participants').append('<li class="list-group-item">' + username + '</li>');
+        $("#list-participants").empty();
+        $.each(username, function (key, value) {
+          $('#list-participants').append('<li class="list-group-item">' + key + '</li>');
+        });
       }
     });
-    $('#save-summary').click(function () {
-
-      var editedsummary = $('#summary').val();
-
-      $('#summarytext').text(editedsummary);
-      socket.emit('savesummary', editedsummary);
+    socket.on('deleteuser', function (username) {
+      $('li:contains(' + username + ')').remove();
     });
+    socket.on('updatechat', function (username, data) {
 
-  });
-</script>
+      $('#chat').append('<b>' + username + '</b> ' + data + "</br>");
+    });
+    socket.on('clearchat', function () {
+
+      $('#chat').text("");
+    });
+    socket.on('summary', function (data) {
+
+      $('#summarytext').text(data);
+    });
+    $(function () {
+      $('#send').click(function () {
+
+        var message = $('#reply-box').val();
+
+        $('#reply-box').val('');
+        socket.emit('sendchat', message);
+      });
+      $('#reply-box').keypress(function (e) {
+        if (e.keyCode == 13) {
+          $(this).blur();
+          $('#send').click();
+          return false;
+        }
+      });
+      $('#save-summary').click(function () {
+
+        var editedsummary = $('#summary').val();
+
+        $('#summarytext').text(editedsummary);
+        socket.emit('savesummary', editedsummary);
+      });
+
+    });
+  </script>
 </body>
 
 </html>

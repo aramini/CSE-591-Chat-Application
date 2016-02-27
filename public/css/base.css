@@ -91,3 +91,18 @@ strong {
   padding: 10px;
   float: left;
 }
+#commentsBoxid {
+  position: absolute;
+  !important left: 200px;
+  top: 50px;
+}
+.topRight {
+  float: right;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+}
