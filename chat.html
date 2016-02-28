@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,148 +25,153 @@
     <link rel="stylesheet" href="css/base.css" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</head>
 
-  </head>
-
-  <body>
+<body>
     <div class="container">
-      <h1>Expert Chat Room</h1>
-      <div class="row">
-        <div class="col-xs-8">
-          <form class="form-horizontal">
-            <h2>Details</h2>
-
-            <div id="detail" class="well" style="height:50px;">
-
+        <h1>Expert Chat Room</h1>
+        <div class="row">
+            <div class="col-xs-8">
+                <form class="form-horizontal">
+                    <span data-toggle="tooltip" data-placement="top" title="Shows expert details">
+                    <div id="detail" class="well" style="height:40px;">
+                    </div>
+                  </span>
+                    <div id="chat" class="well" style="height:400px; overflow-y:auto;"></div>
+                    <input type="text" class="form-control" id="reply-box" placeholder="Enter your text here"></input>
+                    <button class="btn btn-default pull-right" type="button" id="send">Send</button>
+                </form>
             </div>
-            <div id="chat" class="well" style="height:400px; overflow-y:auto;"></div>
-            <input type="text" class="form-control" id="reply-box" placeholder="Enter your text here"></input>
-            <button class="btn btn-default pull-right" type="button" id="send">Send</button>
-          </form>
-
+            <span class="pull-right" data-toggle="tooltip" data-placement="top" title="Click to show relevant links to the chat">
+            <div id='trigger' class="btn btn-primary pull-right">Get Related Content</div>
+          </span>
+            <div class="col-xs-4">
+                <ul class="list-group" id="list-teachers"></ul>
+                <span data-toggle="tooltip" data-placement="top" title="Participants list">
+                <li class="list-group-item btn-primary">Participants</li>
+              </span>
+                <ul class="list-group" id="list-participants" style="height:200px; overflow-y:scroll;"></ul>
+                <div class="well panel-default">
+                    <div class="panel-heading">Summary</div>
+                    <div class="panel-body">
+                        <span data-toggle="tooltip" data-placement="top" title="Summary of the Chat">
+                        <div id="summarytext" class="well" style="height:100px; overflow-y:auto;"></div>
+                      </span>
+                    </div>
+                    <span data-toggle="tooltip" data-placement="top" title="Edit summary here">
+                    <div class="btn btn-primary" data-toggle="modal" data-target="#myModal" >Edit</div>
+                  </span>
+                </div>
+            </div>
         </div>
-        <div id='trigger' class="btn btn-primary pull-right">Get Related Content</div>
-        <div class="col-xs-4">
-
-          <ul class="list-group" id="list-teachers"></ul>
-        <li class="list-group-item btn-primary">Participants</li>
-        <ul class="list-group" id="list-participants" style="height:200px; overflow-y:scroll;"></ul>
-        <div class="well panel-default">
-          <div class="panel-heading btn-primary">Summary</div>
-          <div class="panel-body">
-            <div id="summarytext" class="well" style="height:100px; overflow-y:auto;"></div>
-          </div>
-          <div class="btn btn-primary" data-toggle="modal" data-target="#myModal">Edit</div>
+    </div>
+    </div>
+    <!-- modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&close;</button>-->
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea class="form-control" rows="8" id="summary"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn" data-dismiss="modal" id="save-summary">Save changes</button>
+                </div>
+            </div>
         </div>
-        
-      </div>
     </div>
-  </div>
-</div>
-
-<!-- modal -->
-<div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&close;</button>-->
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <textarea class="form-control" rows="8" id="summary"></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn" data-dismiss="modal" id="save-summary">Save changes</button>
-      </div>
+    <div id="slider" className="container" style="transform: translate(50px,100px); position: relative; top:-660px; display:none;">
+        <div id="commentsContent" class="panel">
+            Hello world
+        </div>
     </div>
-  </div>
-</div>
-
-<div id="slider" className="container" style="transform: translate(50px,100px); position: relative; top:-670px; display:none;">
-  <div id="commentsContent" class="panel" >
-    Hello world
-  </div>
-
-</div>
-<script src="scripts/react-draggable.min.js"></script>
-<script type="text/babel" src="scripts/example.js"></script>
-<script>
-
-    $("#trigger").click(function () {
-      $("#slider").show();
-     $("#commentsContent").toggle();
-    console.log("hello");
+    <script src="scripts/react-draggable.min.js"></script>
+    <script type="text/babel" src="scripts/example.js"></script>
+    <script>
+    $("#trigger").click(function() {
+        $("#slider").show();
+        $("#commentsContent").toggle();
+        console.log("hello");
     });
-
-</script>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io.connect('http://localhost:3000');
-  socket.on('connect', function () {
-    // call the server-side function 'adduser' and send one parameter (value of prompt)
-    socket.emit('adduser', prompt("What's your name?"));
-  });
-  socket.on('enteruser', function (username) {
-    console.log("am here");
-    console.log(username);
-    if (username != null) {
-      var l = localStorage.getItem("name");
-      var t = localStorage.getItem("time")
-      $("#detail").text("");
-      $("#detail").append('<b>ExpertName:</b>' + l + '&nbsp;<b>Timings:</b>' + t + '</br>');
-      //$('#list-participants').append('<li class="list-group-item">' + username + '</li>');
-      $("#list-participants").empty();
-      $.each(username, function (key, value) {
-        $('#list-participants').append('<li class="list-group-item">' + key + '</li>');
-      });
-    }
-  });
-  socket.on('deleteuser', function (username) {
-    $('li:contains(' + username + ')').remove();
-  });
-  socket.on('updatechat', function (username, data) {
-
-    $('#chat').append('<b>' + username + '</b> ' + data + "</br>");
-  });
-  socket.on('clearchat', function () {
-
-    $('#chat').text("");
-  });
-  socket.on('summary', function (data) {
-
-    $('#summarytext').text(data);
-  });
-  $(function () {
-    $('#send').click(function () {
-
-      var message = $('#reply-box').val();
-
-      $('#reply-box').val('');
-      socket.emit('sendchat', message);
+    </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    var socket = io.connect('http://localhost:3000');
+    socket.on('connect', function() {
+        // call the server-side function 'adduser' and send one parameter (value of prompt)
+        socket.emit('adduser', prompt("What's your name?"));
     });
-    $('#reply-box').keypress(function (e) {
-      if (e.keyCode == 13) {
-        $(this).blur();
-        $('#send').click();
-        return false;
-      }
+    socket.on('enteruser', function(username) {
+        console.log("am here");
+        console.log(username);
+        if (username != null) {
+            var l = localStorage.getItem("name");
+            var t = localStorage.getItem("time")
+            $("#detail").text("");
+            $("#detail").append('<b>ExpertName:</b>' + l + '&nbsp;<b>Timings:</b>' + t + '</br>');
+            //$('#list-participants').append('<li class="list-group-item">' + username + '</li>');
+            $("#list-participants").empty();
+            $.each(username, function(key, value) {
+                $('#list-participants').append('<li class="list-group-item">' + key + '</li>');
+            });
+        }
     });
-    $('#save-summary').click(function () {
-
-      var editedsummary = $('#summary').val();
-
-      $('#summarytext').text(editedsummary);
-      socket.emit('savesummary', editedsummary);
+    socket.on('deleteuser', function(username) {
+        $('li:contains(' + username + ')').remove();
     });
+    socket.on('updatechat', function(username, data) {
+        if (username.match(/Expert/)) {
+            $('#chat').append('<div style="color:blue;"> <b>' + username + '</b> : '+ data +'</div>');
+        } else {
+            $('#chat').append('<b>' + username + '</b> : ' + data + "</br>");
+        }
+    });
+    socket.on('clearchat', function() {
 
-  });
-</script>
+        $('#chat').text("");
+    });
+    socket.on('summary', function(data) {
+
+        $('#summarytext').text(data);
+    });
+    $(function() {
+        $('#send').click(function() {
+
+            var message = $('#reply-box').val();
+
+            $('#reply-box').val('');
+            socket.emit('sendchat', message);
+        });
+        $('#reply-box').keypress(function(e) {
+            if (e.keyCode == 13) {
+                $(this).blur();
+                $('#send').click();
+                return false;
+            }
+        });
+        $('#save-summary').click(function() {
+
+            var editedsummary = $('#summary').val();
+
+            $('#summarytext').text(editedsummary);
+            socket.emit('savesummary', editedsummary);
+        });
+
+    });
+    </script>
+    <script>
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
 </body>
 
 </html>
