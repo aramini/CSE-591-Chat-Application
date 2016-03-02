@@ -6,7 +6,7 @@ var path = require("path");
 var mongoose = require('mongoose');
 var fs = require('fs');
 var bodyParser = require('body-parser');
-
+var cors = require('cors')
 var path = require('path');
 
 
@@ -16,26 +16,32 @@ var Room = require('./models/roommodel');
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
 
 mongoose.connect('mongodb://127.0.0.1:27017/TOLC-chat', function(err) {
-  if(err) console.log(err);
+  if (err) console.log(err);
 });
+
+
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 // Additional middleware which will set headers that we need on each request.
 app.use(function(req, res, next) {
-    // Set permissive CORS header - this allows this server to be used only as
-    // an API server in conjunction with something like webpack-dev-server.
-    res.setHeader('Access-Control-Allow-Origin', '*');
+  // Set permissive CORS header - this allows this server to be used only as
+  // an API server in conjunction with something like webpack-dev-server.
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
-    // Disable caching so we'll always get the latest comments.
-    res.setHeader('Cache-Control', 'no-cache');
-    next();
+  // Disable caching so we'll always get the latest comments.
+  res.setHeader('Cache-Control', 'no-cache');
+  next();
 });
 
 
 app.get('/', function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
@@ -88,37 +94,41 @@ io.on('connection', function(socket) {
 
     socket.username = username;
     usernames[username] = username;
-    if (Object.keys(usernames).length == 1) {
-      var r = new Room({
-        room: 'Room1',
-        summary: '',
-        participants: [username]
-      });
-      r.save(function(err) {
-        if (err) console.log(err);
-        else console.log("saved room");
-      });
-    } else {
-      Room.update({
-        room: 'Room1'
-      }, {
-        $push: {
-          participants: username
-        }
-      }, function(err) {
-        if (err) console.log(err);
-        else console.log("pushed");
-      })
-      Room.find({
-        room: 'Room1'
-      }, function(err, data) {
-        if (err) console.log(err);
-        else {
-          io.sockets.emit('summary', data[0].summary);
-        }
-      });
-    }
 
+    Room.count({}, function(err, count) {
+      if (count > 0) {
+        Room.update({
+          room: 'Room1'
+        }, {
+          $push: {
+            participants: username
+          }
+        }, function(err, data) {
+          if (err) console.log(err);
+          else console.log("pushed");
+          console.log("data after pushed", data)
+        });
+
+        Room.find({
+          room: 'Room1'
+        }, function(err, data) {
+          if (err) console.log(err);
+          else {
+            io.sockets.emit('summary', data[0].summary);
+          }
+        });
+      } else {
+        var r = new Room({
+          room: 'Room1',
+          summary: '',
+          participants: [username]
+        });
+        r.save(function(err) {
+          if (err) console.log(err);
+          else console.log("saved room");
+        });
+      }
+    });
 
 
     io.sockets.emit('enteruser', usernames);
@@ -171,5 +181,6 @@ io.on('connection', function(socket) {
 });
 
 app.get('/chat', function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.sendFile(path.join(__dirname + '/chat.html'));
 });

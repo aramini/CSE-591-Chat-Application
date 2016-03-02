@@ -101,6 +101,19 @@
 <script src="scripts/react-draggable.min.js"></script>
 <script type="text/babel" src="scripts/example.js"></script>
 <script>
+
+$('#myModal').on('show.bs.modal', function (event) {
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var summary = $('#summarytext').text();
+  var modal = $(this)
+  console.log(summary);
+
+  //modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('#summary').text(summary);
+})
+
+
   $("#trigger").click(function () {
     $("#commentsContent").toggle();
     console.log("hello");
@@ -146,7 +159,6 @@
     $('#chat').text("");
   });
   socket.on('summary', function (data) {
-
     $('#summarytext').text(data);
   });
   $(function () {
@@ -166,9 +178,7 @@
       }
     });
     $('#save-summary').click(function () {
-
       var editedsummary = $('#summary').val();
-
       $('#summarytext').text(editedsummary);
       socket.emit('savesummary', editedsummary);
     });
