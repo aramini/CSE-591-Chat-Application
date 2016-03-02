@@ -76,8 +76,8 @@ var CommentBox = React.createClass({
   render: function() {
     var drags = {onStart: this.onStart, onStop: this.onStop};
     return (
-      <Draggable bounds="body" className="" handle="strong" >
-        <div className="commentBox container box no-cursor col-lg-4 col-md-5">
+      <Draggable  className="" handle="strong" >
+        <div style={{position: 'absolute', top: '50px', right: '50px'}} className="commentBox container box no-cursor col-lg-4 col-md-5">
             <strong className="cursor">Drag here</strong>
             <h2>Comments</h2>
 
