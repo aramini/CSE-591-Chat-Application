@@ -71,8 +71,8 @@ app.post('/api/comments', function(req, res) {
     // treat Date.now() as unique-enough for our purposes.
     var newComment = {
       id: Date.now(),
-      author: req.body.author,
-      text: req.body.text,
+      title: req.body.title,
+      url: req.body.url,
     };
     comments.push(newComment);
     fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
@@ -80,9 +80,10 @@ app.post('/api/comments', function(req, res) {
         console.error(err);
         process.exit(1);
       }
-      res.json(comments);
+      //res.json(comments);
     });
   });
+
 });
 
 

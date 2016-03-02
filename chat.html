@@ -194,6 +194,12 @@ $('#myModal').on('show.bs.modal', function (event) {
     $("#detail").append('<b>ExpertName:</b>' + l + '&nbsp;<b>Timings:</b>' + t + '</br>');
 
   });
+
+  $(document).on('click','.saveComment',function(e) {
+    console.log("got a click");
+    e.preventDefault();
+
+});
 </script>
 </body>
 
