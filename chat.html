@@ -83,14 +83,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&close;</button>-->
-        <h4 class="modal-title">Modal title</h4>
+        <h4 class="modal-title">Enter Summay here</h4>
       </div>
       <div class="modal-body">
         <textarea class="form-control" rows="8" id="summary"></textarea>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn" data-dismiss="modal" id="save-summary">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-summary">Save changes</button>
       </div>
     </div>
   </div>
@@ -136,9 +136,9 @@
   });
   socket.on('updatechat', function (username, data) {
     if (username.match(/Expert/)) {
-      $('#chat').append('<div class="panel" style="color:blue;"> <b>' + username + '</b> : ' + data + '</div>');
+      $('#chat').append('<div class="panel" style="color:blue;"> <b>' + username + '</b> : ' + data + '<div class="badge">2</div></div>');
     } else {
-      $('#chat').append('<div class="panel" style="color:blue;"><b>' + username + '</b> : ' + data + "</br></div>");
+      $('#chat').append('<div class="panel"><b>' + username + '</b> : ' + data + '<span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span></div>');
     }
   });
   socket.on('clearchat', function () {

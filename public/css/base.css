@@ -91,6 +91,12 @@ strong {
   padding: 10px;
   float: left;
 }
-.panel-footer{
+.panel-footer {
   padding: 4px
+}
+.panel {
+  margin-bottom: 5px;
+}
+.glyphicon {
+  opacity: 0.25;
 }
