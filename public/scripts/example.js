@@ -35,6 +35,7 @@ var CommentBox = React.createClass({
     $.ajax({
       url: this.props.url,
       dataType: 'json',
+      type:'GET',
       cache: false,
       success: function(data) {
         this.setState({data: data});
@@ -45,6 +46,7 @@ var CommentBox = React.createClass({
     });
   },
   handleCommentSubmit: function(comment) {
+    console.log("WHY IS THIS CALLED");
 
     var comments = this.state.data;
     // Optimistically set an id on the new comment. It will be replaced by an
@@ -59,6 +61,7 @@ var CommentBox = React.createClass({
       type: 'POST',
       data: comment,
       success: function(data) {
+        console.log("GOT NEW DATA");
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
@@ -78,7 +81,7 @@ var CommentBox = React.createClass({
     var drags = {onStart: this.onStart, onStop: this.onStop};
     return (
       <Draggable  className="" handle="strong" >
-        <div style={{position: 'absolute', top: '50px', right: '50px'}} className="commentBox container box no-cursor col-lg-4 col-md-5">
+        <div style={{position: 'absolute', top: '50px', right: '50px' }} className="commentBox container box no-cursor col-lg-4 col-md-5">
             <strong className="cursor">Drag here</strong>
             <h2>Comments</h2>
 
@@ -100,7 +103,7 @@ var CommentList = React.createClass({
       );
     });
     return (
-      <div className="commentList">
+      <div className="commentList" style={{height:'400px', 'overflow-y':'auto'}}>
       <div className="list-group">
         {commentNodes}
         </div>

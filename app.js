@@ -61,6 +61,7 @@ app.get('/api/comments', function(req, res) {
 
 app.post('/api/comments', function(req, res) {
   fs.readFile(COMMENTS_FILE, function(err, data) {
+    console.log("GOT POST REQUEST");
     if (err) {
       console.error(err);
       process.exit(1);
@@ -80,7 +81,7 @@ app.post('/api/comments', function(req, res) {
         console.error(err);
         process.exit(1);
       }
-      //res.json(comments);
+      res.json(comments);
     });
   });
 
