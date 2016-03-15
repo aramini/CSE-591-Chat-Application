@@ -48,6 +48,7 @@
               </span>
               <span class="pull-right" data-toggle="tooltip" data-placement="top" title="Click to show relevant links to the chat">
                 <div id='trigger' class="btn btn-success pull-right ">Get Related Content</div>
+                 <div id='saveChat' class="btn btn-success pull-right ">Save Chat</div>
               </span>
             </div>
           </div>
@@ -119,6 +120,18 @@ $('#myModal').on('show.bs.modal', function (event) {
     console.log("hello");
     $("#commentsContent").css({top: "100px"});
     style = "transform: translate(50px,100px); position: relative;  display:none;"
+  });
+
+  $("#saveChat").click(function () {
+  $.ajax({
+       type: "GET",
+       url: "api/saveChat",
+       data: "var1=data1&var2=data2",
+       success: function(msg){
+         alert( "Data Saved: " + msg ); //Anything you want
+       }
+     });
+
   });
 </script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

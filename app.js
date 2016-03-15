@@ -12,6 +12,7 @@ var path = require('path');
 
 var Message = require('./models/messagemodel');
 var Room = require('./models/roommodel');
+var Archive = require('./models/archivemodel');
 
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
 
@@ -58,6 +59,42 @@ app.get('/api/comments', function(req, res) {
     res.json(JSON.parse(data));
   });
 });
+
+app.get('/api/saveChat', function(req, res) {
+  var archive = {};
+  Room.find({
+          room: 'Room1'
+        }, function(err, data) {
+          if (err) console.log(err);
+          else {
+             archive.summary = data[0].summary;
+             Message.find(function(err, data) {
+              if (err) console.log(err);
+              else {
+                archive.messages=data;
+                fs.readFile(COMMENTS_FILE, function(err, datalinks) {
+                  if (err) {
+                    console.error(err);
+                    process.exit(1);
+                  } 
+                    archive.links=datalinks;
+                    var a = new Archive(archive);
+                    a.save(function(err){ if(err)console.log(err);});
+                    res.json(archive);
+                });
+                
+                
+              }
+            })         
+            
+          }
+        }
+      );
+
+
+  
+});
+
 
 app.post('/api/comments', function(req, res) {
   fs.readFile(COMMENTS_FILE, function(err, data) {
