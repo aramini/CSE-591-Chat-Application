@@ -98,6 +98,12 @@ app.get('/api/saveChat', function(req, res) {
 });
 
 
+app.get('/api/archiveslist', function(req,res){
+    Archive.find({},function(err,docs){
+      res.json(docs);
+    });
+});
+
 app.get('/api/updatearchivechat', function(req,res){
    Archive.find(function(err,data){
       if(err) console.log(err);
