@@ -96,6 +96,24 @@ app.get('/api/saveChat', function(req, res) {
 });
 
 
+app.get('/api/updatearchivechat', function(req,res){
+   Archive.find(function(err,data){
+      if(err) console.log(err);
+      else{
+          res.json(data[0].messages);
+        }
+        });
+    });
+
+app.get('/api/updatearchivelinks', function(req,res){
+   Archive.find(function(err,data){
+      if(err) console.log(err);
+      else{
+          res.json(data[0].links);
+        }
+        });
+    });
+
 app.post('/api/comments', function(req, res) {
   fs.readFile(COMMENTS_FILE, function(err, data) {
     console.log("GOT POST REQUEST");
@@ -197,6 +215,7 @@ io.on('connection', function(socket) {
     io.sockets.emit('updatechat', socket.username, data);
   });
 
+
   socket.on('savesummary', function(data) {
     console.log("hi" + data);
     Room.update({
@@ -222,4 +241,14 @@ io.on('connection', function(socket) {
 app.get('/chat', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.sendFile(path.join(__dirname + '/chat.html'));
+});
+
+app.get('/archive', function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.sendFile(path.join(__dirname + '/archive.html'));
+});
+
+app.get('/archivelist', function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.sendFile(path.join(__dirname + '/archivelist.html'));
 });

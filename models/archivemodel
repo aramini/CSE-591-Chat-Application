@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var archiveSchema = mongoose.Schema({
+	title : String,
 	summary : String,
 	messages : [String],
 	links:[String]
