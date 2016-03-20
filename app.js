@@ -15,7 +15,7 @@ var Room = require('./models/roommodel');
 var Archive = require('./models/archivemodel');
 
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
-
+var ARCHIVE_COMMENTS_FILE = path.join(__dirname,'archivecomments.json');
 mongoose.connect('mongodb://127.0.0.1:27017/TOLC-chat', function(err) {
   if (err) console.log(err);
 });
@@ -251,4 +251,47 @@ app.get('/archive', function(req, res) {
 app.get('/archivelist', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.sendFile(path.join(__dirname + '/archivelist.html'));
+});
+
+
+app.get('/api/archivecomments', function(req, res) {
+  fs.readFile(ARCHIVE_COMMENTS_FILE, function(err, data) {
+    var empty ={};
+    if (err) {
+      console.error(err);
+      process.exit(1);
+
+    }if(data == "") res.json(empty);
+    else res.json(JSON.parse(data));
+  });
+});
+
+app.post('/api/archivecomments', function(req, res) {
+  console.log("Got a comment to save")
+  fs.readFile(ARCHIVE_COMMENTS_FILE, function(err, data) {
+    console.log("GOT POST REQUEST");
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    console.log(req.body);
+    var comments = JSON.parse(data);
+    // NOTE: In a real implementation, we would likely rely on a database or
+    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
+    // treat Date.now() as unique-enough for our purposes.
+    var newComment = {
+      id: Date.now(),
+      author: req.body.author,
+      text: req.body.text,
+    };
+    comments.push(newComment);
+    fs.writeFile(ARCHIVE_COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      res.json(comments);
+    });
+  });
+
 });
