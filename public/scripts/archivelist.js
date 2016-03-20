@@ -9,7 +9,19 @@
  * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+var Archive = React.createClass({
+  render:function(){
+    return (
+      <tr>
+            <td>this.props.title</td>
+            <td>this.props.summary</td>
+            <td>this.props.created</td>
+            <td><a href="/archive">Show Chat</a></td>
+      </tr>
 
+      )
+  }
+});
 var Comment = React.createClass({
   rawMarkup: function() {
     var rawMarkup = marked(this.props.children, {sanitize: true});
@@ -27,6 +39,30 @@ var Comment = React.createClass({
     );
   }
 });
+var ArchiveBox = React.createClass({
+  getInitialState: function() {
+    return { archives: []};
+  },
+  componentDidMount: function(){
+    $.ajax({
+      url: "/api/archiveslist",
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({archives: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  render: function(){
+    return(
+      <ArchiveList archives={this.state.archives} />
+      )
+  }
+});
+
 
 var CommentBox = React.createClass({
   loadCommentsFromServer: function() {
@@ -83,6 +119,19 @@ var CommentBox = React.createClass({
   }
 });
 
+var ArchiveList = React.createClass({
+  render:function(){
+    var archiveNode = this.props.archives.map(function(archive){
+      return(
+        <Archive summary={archive.summary} title={archive.title} created={archive.created} tags={archive.tags}/>
+        )
+    })
+    return(
+        <p>hi</p>
+      )
+  }
+});
+
 var CommentList = React.createClass({
   render: function() {
     var commentNodes = this.props.data.map(function(comment) {
@@ -136,13 +185,24 @@ var CommentForm = React.createClass({
           value={this.state.text}
           onChange={this.handleTextChange}
         />
-        <input type="submit" value="Post" />
+        <input type="submit" className="btn btn-default" value="Post" />
       </form>
     );
   }
 });
 
+var App = React.createClass({
+  render:function(){
+    return (
+    <div>
+      <ArchiveBox />
+      <CommentBox url="/api/archivecomments" pollInterval={2000} />
+    </div>
+    )
+  }
+});
+
 ReactDOM.render(
-  <CommentBox url="/api/archivecomments" pollInterval={2000} />,
+  <App/>,
   document.getElementById('content')
 );
