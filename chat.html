@@ -102,11 +102,11 @@
                     <h4 class="modal-title">Save as</h4>
                 </div>
                 <div class="modal-body">
-                    <textarea class="form-control" rows="3" id="summary"></textarea>
+                    <textarea class="form-control" rows="3" id="saveName"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-summary">Save</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="chatSave">Save</button>
                 </div>
             </div>
         </div>
@@ -138,11 +138,11 @@
         style = "transform: translate(50px,100px); position: relative;  display:none;"
     });
 
-    $("#saveChat").click(function() {
+    $("#chatSave").click(function() {
         $.ajax({
             type: "GET",
             url: "api/saveChat",
-            data: "var1=data1&var2=data2",
+            data: "var1=data1&saveName="+$("#saveName").val(),
             success: function(msg) {
             }
         });
