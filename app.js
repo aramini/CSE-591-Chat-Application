@@ -68,10 +68,10 @@ app.get('/api/saveChat', function(req, res) {
           if (err) console.log(err);
           else {
              archive.summary = data[0].summary;
-             Message.find(function(err, data) {
+             Message.find().lean().exec(function(err, data) {
               if (err) console.log(err);
               else {
-                archive.messages=data;
+                archive.messages=JSON.stringify(data);
                 fs.readFile(COMMENTS_FILE, function(err, datalinks) {
                   if (err) {
                     console.error(err);
@@ -164,8 +164,8 @@ io.on('connection', function(socket) {
           }
         }, function(err, data) {
           if (err) console.log(err);
-          else console.log("pushed");
-          console.log("data after pushed", data)
+          
+          console.log("Save user to room", data)
         });
 
         Room.find({

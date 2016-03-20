@@ -6,7 +6,8 @@ var archiveSchema = mongoose.Schema({
 	created : Date,
 	title : String,
 	summary : String,
-	messages : [String],
+	messages : String,
+	tags : [String],
 	links:[String]
 });
  
