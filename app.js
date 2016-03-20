@@ -78,6 +78,8 @@ app.get('/api/saveChat', function(req, res) {
                     process.exit(1);
                   } 
                     archive.links=datalinks;
+                    archive.title = req.query.saveName;
+                    archive.created = Date.now();
                     var a = new Archive(archive);
                     a.save(function(err){ if(err)console.log(err);});
                     res.json(archive);
