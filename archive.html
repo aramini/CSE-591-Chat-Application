@@ -14,8 +14,7 @@
 </head>
 
 <body>
-
-<nav class="navbar navbar-default">
+    <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand">Chat</a>
@@ -23,36 +22,32 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"></div>
         </div>
     </nav>
+    <div class="modal-body row">
+        <div class="col-md-8">
+            <div id="archiveChat" class="well" style="height:500px; overflow-y:auto;"></div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading" data-toggle="tooltip" data-placement="top" title="Summary of the Chat">Summary</div>
+                <div class="panel-body" id="summarytext"></div>
+                <div class="panel-footer" style="text-align:right">
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading" data-toggle="tooltip" data-placement="top">Related Links</div>
+                <div class="panel-body" id="archiveLinks"></div>
+                <div class="panel-footer" style="text-align:right">
+                </div>
+            </div>
+            <!-- <div id="archiveLinks" class="well" style="height:500px; overflow-y:auto;"></div> -->
+        </div>
+    </div>
 
-<div class="modal-body row">
-  <div class="col-md-8">
-    <div id="archiveChat" class="well" style="height:500px; overflow-y:auto;"></div>
-  </div>
-  <div class="col-md-4">
-    <div id="archiveLinks" class="well" style="height:500px; overflow-y:auto;"></div>
-  </div>
-</div>
-
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-    /*var socket = io.connect('http://localhost:3000');
-        socket.on('connect', function() {
-         socket.emit('updatearchivechat');
-        });*/
-
-    /* socket.on('updatearchivechat1', function(user,text){
-              if (user.match(/Expert/)) {
-            $('#archiveChat').append('<div class="panel" style="color:blue;"> <b>' + user + '</b> : ' + text + '<div class="badge">2</div></div>');
-        } else {
-            $('#archiveChat').append('<div class="panel"><b>' + user + '</b> : ' + text + '<span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span></div>');
-        }
-    });
-*/
-
     $(document).ready(function() {
         $.ajax({
             type: "GET",
@@ -62,7 +57,7 @@
 
                 messages.forEach(function(m) {
                     if (m.user.match(/Expert/)) {
-                        $('#archiveChat').append('<div class="panel" style="color:blue;"> <b>' + m.user + '</b> : ' + m.text + '<div class="badge">2</div></div>');
+                        $('#archiveChat').append('<div class="panel" style="color:blue;"> <b>' + m.user + '</b> : ' + m.text + '</div>');
                     } else {
                         $('#archiveChat').append('<div class="panel"><b>' + m.user + '</b> : ' + m.text + '<span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span></div>');
                     }
@@ -74,12 +69,19 @@
             url: "api/updatearchivelinks",
             success: function(msg) {
                 $.each(JSON.parse(msg), function(err, obj) {
-                    $('#archiveLinks').append('<a class="panel" href='+ obj.url +'>' + obj.title + '</a></br>');
+                    $('#archiveLinks').append('<a class="panel" href=' + obj.url + '>' + obj.title + '</a></br>');
                 });
 
             }
         });
+        $.ajax({
+            type: "GET",
+            url: "api/updatearchivesummary",
+            success: function(msg) {
 
+                    $('#summarytext').append(msg);
+            }
+        });
     });
     </script>
 </body>

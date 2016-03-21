@@ -122,6 +122,16 @@ app.get('/api/updatearchivelinks', function(req,res){
         });
     });
 
+app.get('/api/updatearchivesummary', function(req,res){
+   Archive.find(function(err,data){
+      if(err) console.log(err);
+      else{
+          res.json(data[0].summary);
+        }
+        });
+    });
+
+
 app.post('/api/comments', function(req, res) {
   fs.readFile(COMMENTS_FILE, function(err, data) {
     console.log("GOT POST REQUEST");
