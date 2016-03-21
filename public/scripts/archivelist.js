@@ -30,13 +30,13 @@ var Comment = React.createClass({
 
   render: function() {
     return (
-      <div className="comment container">
-        <div className="panel panel-default well">
-          <h4 className="commentAuthor text-primary">
-            {this.props.author}:
+      <div className="comment" >
+        <div className="well" style={{padding:'10', margin:'2'}}>
+          <h4 style={{display:'inline'}} className="commentAuthor text-primary">
+            {this.props.author} : 
            </h4>
-           <h4 className="text-muted"> 
-            {this.props.children}
+           <h4 style={{display:'inline'}} className="text-muted"> 
+            &nbsp;{this.props.children}
           </h4>
         </div>
       </div>
@@ -112,7 +112,7 @@ var CommentList = React.createClass({
       );
     });
     return (
-      <div className="commentList">
+      <div className="commentList" style={{paddingBottom:"20"}}>
         {commentNodes}
       </div>
     );
