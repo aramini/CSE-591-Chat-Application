@@ -13,9 +13,9 @@ var Archive = React.createClass({
   render:function(){
     return (
       <tr>
+            <td>{this.props.created}</td>
             <td>{this.props.title}</td>
             <td>{this.props.summary}</td>
-            <td>{this.props.created}</td>
             <td><a href="/archive">Show Chat</a></td>
       </tr>
 
