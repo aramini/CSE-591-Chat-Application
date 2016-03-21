@@ -15,6 +15,15 @@
 
 <body>
 
+<nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">Chat</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"></div>
+        </div>
+    </nav>
+
 <div class="modal-body row">
   <div class="col-md-8">
     <div id="archiveChat" class="well" style="height:500px; overflow-y:auto;"></div>
@@ -49,16 +58,14 @@
             type: "GET",
             url: "api/updatearchivechat",
             success: function(msg) {
-                msg.forEach(function(mes) {
-                  
-                  var mes= mes.replace('_', '"');
-                  var mes = mes.replace(':','":');
-                  var mes = mes.replace(',',',"');
-                  var mes = mes.replace(/'/g, '"');
-                  console.log(mes);
-                  var obj = JSON.parse(mes);
-                  console.log(obj.user);
-                    $('#archiveChat').append(mes);
+                var messages = JSON.parse(msg);
+
+                messages.forEach(function(m) {
+                    if (m.user.match(/Expert/)) {
+                        $('#archiveChat').append('<div class="panel" style="color:blue;"> <b>' + m.user + '</b> : ' + m.text + '<div class="badge">2</div></div>');
+                    } else {
+                        $('#archiveChat').append('<div class="panel"><b>' + m.user + '</b> : ' + m.text + '<span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span></div>');
+                    }
                 });
             }
         });

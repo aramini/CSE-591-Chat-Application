@@ -15,7 +15,7 @@ var Room = require('./models/roommodel');
 var Archive = require('./models/archivemodel');
 
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
-
+var ARCHIVE_COMMENTS_FILE = path.join(__dirname,'archivecomments.json');
 mongoose.connect('mongodb://127.0.0.1:27017/TOLC-chat', function(err) {
   if (err) console.log(err);
 });
@@ -68,16 +68,18 @@ app.get('/api/saveChat', function(req, res) {
           if (err) console.log(err);
           else {
              archive.summary = data[0].summary;
-             Message.find(function(err, data) {
+             Message.find().lean().exec(function(err, data) {
               if (err) console.log(err);
               else {
-                archive.messages=data;
+                archive.messages=JSON.stringify(data);
                 fs.readFile(COMMENTS_FILE, function(err, datalinks) {
                   if (err) {
                     console.error(err);
                     process.exit(1);
                   } 
                     archive.links=datalinks;
+                    archive.title = req.query.saveName;
+                    archive.created = Date.now();
                     var a = new Archive(archive);
                     a.save(function(err){ if(err)console.log(err);});
                     res.json(archive);
@@ -95,6 +97,12 @@ app.get('/api/saveChat', function(req, res) {
   
 });
 
+
+app.get('/api/archiveslist', function(req,res){
+    Archive.find({},function(err,docs){
+      res.json(docs);
+    });
+});
 
 app.get('/api/updatearchivechat', function(req,res){
    Archive.find(function(err,data){
@@ -162,8 +170,8 @@ io.on('connection', function(socket) {
           }
         }, function(err, data) {
           if (err) console.log(err);
-          else console.log("pushed");
-          console.log("data after pushed", data)
+          
+          console.log("Save user to room", data)
         });
 
         Room.find({
@@ -251,4 +259,47 @@ app.get('/archive', function(req, res) {
 app.get('/archivelist', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.sendFile(path.join(__dirname + '/archivelist.html'));
+});
+
+
+app.get('/api/archivecomments', function(req, res) {
+  fs.readFile(ARCHIVE_COMMENTS_FILE, function(err, data) {
+    var empty ={};
+    if (err) {
+      console.error(err);
+      process.exit(1);
+
+    }if(data == "") res.json(empty);
+    else res.json(JSON.parse(data));
+  });
+});
+
+app.post('/api/archivecomments', function(req, res) {
+  console.log("Got a comment to save")
+  fs.readFile(ARCHIVE_COMMENTS_FILE, function(err, data) {
+    console.log("GOT POST REQUEST");
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    console.log(req.body);
+    var comments = JSON.parse(data);
+    // NOTE: In a real implementation, we would likely rely on a database or
+    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
+    // treat Date.now() as unique-enough for our purposes.
+    var newComment = {
+      id: Date.now(),
+      author: req.body.author,
+      text: req.body.text,
+    };
+    comments.push(newComment);
+    fs.writeFile(ARCHIVE_COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      res.json(comments);
+    });
+  });
+
 });
