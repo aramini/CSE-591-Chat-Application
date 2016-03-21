@@ -18,11 +18,15 @@ var Comment = React.createClass({
 
   render: function() {
     return (
-      <div className="comment">
-        <h2 className="commentAuthor">
-          {this.props.author}
-        </h2>
-        <span >{this.props.children}</span>
+      <div className="comment container">
+        <div className="panel panel-default well">
+          <h4 className="commentAuthor text-primary">
+            {this.props.author}:
+           </h4>
+           <h4 className="text-muted"> 
+            {this.props.children}
+          </h4>
+        </div>
       </div>
     );
   }
@@ -74,8 +78,10 @@ var CommentBox = React.createClass({
   },
   render: function() {
     return (
-      <div className="commentBox">
-        <h1>Comments</h1>
+      <div className="commentBox container">
+      
+        <h1 className="text-primary">Comments</h1>
+
         <CommentList data={this.state.data} />
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
       </div>
@@ -123,21 +129,34 @@ var CommentForm = React.createClass({
   },
   render: function() {
     return (
-      <form className="commentForm" onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          placeholder="Your name"
-          value={this.state.author}
-          onChange={this.handleAuthorChange}
+      <div className="container">
+      <form className="commentForm form-horizontal" onSubmit={this.handleSubmit}>
+      <div className="form-group">          
+          <div className="col-sm-10">
+          <input type="text" className="form-control" id="exampleName" 
+             placeholder="Your Name"                
+             value={this.state.author}
+             onChange={this.handleAuthorChange}
         />
-        <input
-          type="text"
-          placeholder="Say something..."
-          value={this.state.text}
-          onChange={this.handleTextChange}
-        />
-        <input type="submit" value="Post" />
+        </div>
+      </div>
+      <div className="form-group">           
+           <div className="col-sm-10">
+           <input type="text" className="form-control" id="exampletext" 
+              placeholder="Say something.."                            
+              value={this.state.text}
+              onChange={this.handleTextChange}
+           />
+           </div>
+      </div>
+        
+        <div className="form-group">
+            <div className="col-sm-10">
+            <button type="submit" className="btn btn-default" value="Post">Post</button>
+            </div>
+        </div>        
       </form>
+      </div>
     );
   }
 });
