@@ -98,6 +98,12 @@ app.get('/api/saveChat', function(req, res) {
 });
 
 
+app.get('/api/archiveslist', function(req,res){
+    Archive.find({},function(err,docs){
+      res.json(docs);
+    });
+});
+
 app.get('/api/updatearchivechat', function(req,res){
    Archive.find(function(err,data){
       if(err) console.log(err);
@@ -115,6 +121,16 @@ app.get('/api/updatearchivelinks', function(req,res){
         }
         });
     });
+
+app.get('/api/updatearchivesummary', function(req,res){
+   Archive.find(function(err,data){
+      if(err) console.log(err);
+      else{
+          res.json(data[0].summary);
+        }
+        });
+    });
+
 
 app.post('/api/comments', function(req, res) {
   fs.readFile(COMMENTS_FILE, function(err, data) {
