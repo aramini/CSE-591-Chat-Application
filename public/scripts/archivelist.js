@@ -164,7 +164,7 @@ var App = React.createClass({
       var updatedList = this.state.iarchives;
       updatedList = updatedList.filter(function(item){
         console.log(item.title);
-        return item.title.toLowerCase().startsWith(
+        return item.title.toLowerCase().includes(
           event.target.value.toLowerCase());
         });
         this.setState({archives: updatedList});
@@ -173,7 +173,7 @@ var App = React.createClass({
       var updatedList2 = this.state.iarchivecomments;
       updatedList2 = updatedList2.filter(function(item){
         console.log("-->"+item.text);
-        return item.text.toLowerCase().startsWith(
+        return item.text.toLowerCase().includes(
           event.target.value.toLowerCase());
       });
       console.log(updatedList2);
