@@ -30,11 +30,15 @@ var Comment = React.createClass({
 
   render: function() {
     return (
-      <div className="comment">
-        <h2 className="commentAuthor">
-          {this.props.author}
-        </h2>
-        <span >{this.props.children}</span>
+      <div className="comment container">
+        <div className="panel panel-default well">
+          <h4 className="commentAuthor text-primary">
+            {this.props.author}:
+           </h4>
+           <h4 className="text-muted"> 
+            {this.props.children}
+          </h4>
+        </div>
       </div>
     );
   }
@@ -62,8 +66,9 @@ var CommentBox = React.createClass({
   },
   render: function() {
     return (
-      <div className="commentBox">
-        <h1>Comments</h1>
+
+      <div className="commentBox container">
+        <h1 className="text-primary">Comments</h1>
         <CommentList data={this.props.data} />
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
       </div>
@@ -137,21 +142,36 @@ var CommentForm = React.createClass({
   },
   render: function() {
     return (
-      <form className="commentForm" onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          placeholder="Your name"
-          value={this.state.author}
-          onChange={this.handleAuthorChange}
+      <div className="container">
+      <form className="commentForm form-horizontal" onSubmit={this.handleSubmit}>
+      <div className="form-group">          
+          <div className="col-sm-10">
+          <input type="text" className="form-control" id="exampleName" 
+             placeholder="Your Name"                
+             value={this.state.author}
+             onChange={this.handleAuthorChange}
         />
-        <input
-          type="text"
-          placeholder="Say something..."
-          value={this.state.text}
-          onChange={this.handleTextChange}
-        />
-        <input type="submit" className="btn btn-default" value="Post" />
+
+        </div>
+      </div>
+      <div className="form-group">           
+           <div className="col-sm-10">
+           <input type="text" className="form-control" id="exampletext" 
+              placeholder="Say something.."                            
+              value={this.state.text}
+              onChange={this.handleTextChange}
+           />
+           </div>
+      </div>
+        
+        <div className="form-group">
+            <div className="col-sm-10">
+            <button type="submit" className="btn btn-default" value="Post">Post</button>
+            </div>
+        </div>        
+
       </form>
+      </div>
     );
   }
 });
@@ -164,7 +184,7 @@ var App = React.createClass({
       var updatedList = this.state.iarchives;
       updatedList = updatedList.filter(function(item){
         console.log(item.title);
-        return item.title.toLowerCase().startsWith(
+        return item.title.toLowerCase().includes(
           event.target.value.toLowerCase());
         });
         this.setState({archives: updatedList});
@@ -173,7 +193,7 @@ var App = React.createClass({
       var updatedList2 = this.state.iarchivecomments;
       updatedList2 = updatedList2.filter(function(item){
         console.log("-->"+item.text);
-        return item.text.toLowerCase().startsWith(
+        return item.text.toLowerCase().includes(
           event.target.value.toLowerCase());
       });
       console.log(updatedList2);
@@ -233,8 +253,8 @@ var App = React.createClass({
   },
   render:function(){
     return (
-    <div>
-      <input type="text" className="form-control" placeholder="Search for..." onChange={this.filterList}/>
+    <div className="container">
+      <input type="text" className="form-control form" placeholder="Search for..." onChange={this.filterList}/>
       <ArchiveBox archives={this.state.archives} filter={this.filterList}/>
       <CommentBox url="/api/archivecomments" filter={this.filterList} pollInterval={2000} handleCommentSubmit={this.handleCommentSubmit} data={this.state.archivecomments}/>
     </div>
