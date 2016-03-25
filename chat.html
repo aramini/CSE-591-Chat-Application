@@ -157,9 +157,10 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
     var socket = io.connect('http://localhost:3000');
+    var name=localStorage.getItem("user");
     socket.on('connect', function() {
         // call the server-side function 'adduser' and send one parameter (value of prompt)
-        socket.emit('adduser', prompt("What's your name?"));
+        socket.emit('adduser', name);
     });
     socket.on('enteruser', function(username) {
         console.log("am here");
