@@ -43,7 +43,7 @@ app.use(function(req, res, next) {
 
 app.get('/', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.sendFile(path.join(__dirname + '/index.html'));
+  res.sendFile(path.join(__dirname + '/home.html'));
 });
 
 http.listen(3000, function() {
@@ -264,6 +264,10 @@ app.get('/chat', function(req, res) {
 app.get('/archive', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.sendFile(path.join(__dirname + '/archive.html'));
+});
+app.get('/index', function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.get('/archivelist', function(req, res) {
