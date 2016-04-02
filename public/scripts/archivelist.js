@@ -35,7 +35,7 @@ var Comment = React.createClass({
   render: function() {
     return (
       <div className="comment" >
-        <div style={{padding:'9',margin:'2'}}>
+        <div  className="well" style={{padding:'9',margin:'2'}}>
           <h4 style={{display:'inline'}} className="commentAuthor text-primary">
             {this.props.author} {this.props.name}: 
            </h4>
@@ -147,7 +147,7 @@ var CommentForm = React.createClass({
       <form className="commentForm form-horizontal" onSubmit={this.handleSubmit}>
       <div className="form-group">           
            <div className="col-sm-10">
-           <input type="text" className="form-control" id="exampletext" 
+           <input type="text" className="form-control input-lg" id="exampletext" 
               placeholder="Say something.."                            
               value={this.state.text}
               onChange={this.handleTextChange}
@@ -157,7 +157,7 @@ var CommentForm = React.createClass({
         
         <div className="form-group">
             <div className="col-sm-10">
-            <button type="submit" className="btn btn-default" value="Post">Post</button>
+            <button type="submit" className="btn btn-default pull-right" value="Post">Post Comment</button>
             </div>
         </div>        
 
