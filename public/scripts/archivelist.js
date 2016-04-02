@@ -121,7 +121,7 @@ var CommentList = React.createClass({
 
 var CommentForm = React.createClass({
   getInitialState: function() {
-    return {author: '', text: '',user:localStorage.getItem("name")};
+    return {author: '', text: '',user:localStorage.getItem("user")};
   },
   handleAuthorChange: function(e) {
     this.setState({author: e.target.value});
@@ -133,11 +133,11 @@ var CommentForm = React.createClass({
     e.preventDefault();
     var author = this.state.author.trim();
     var text = this.state.text.trim();
-    console.log(text +"   "+author+" "+localStorage.getItem("name"));
+    console.log(text +"   "+author+" "+localStorage.getItem("user"));
     if (!text || !author) {
       return;
     }
-    this.props.onCommentSubmit({author: author, text: text,user: localStorage.getItem("name")});
+    this.props.onCommentSubmit({author: author, text: text,user: localStorage.getItem("user")});
     this.setState({author: '', text: '',user:''});
   },
   render: function() {
