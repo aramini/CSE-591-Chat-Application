@@ -323,31 +323,31 @@ app.get('/api/archivecomments', function(req, res) {
 });
 
 app.post('/api/archivecomments', function(req, res) {
-    console.log("Got a comment to save")
-    fs.readFile(ARCHIVE_COMMENTS_FILE, function(err, data) {
-        console.log("GOT POST REQUEST");
-        if (err) {
-            console.error(err);
-            process.exit(1);
-        }
-        console.log(req.body);
-        var comments = JSON.parse(data);
-        // NOTE: In a real implementation, we would likely rely on a database or
-        // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
-        // treat Date.now() as unique-enough for our purposes.
-        var newComment = {
-            id: Date.now(),
-            author: req.body.author,
-            text: req.body.text,
-        };
-        comments.push(newComment);
-        fs.writeFile(ARCHIVE_COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
-            if (err) {
-                console.error(err);
-                process.exit(1);
-            }
-            res.json(comments);
-        });
+  console.log("Got a comment to save")
+  fs.readFile(ARCHIVE_COMMENTS_FILE, function(err, data) {
+    console.log("GOT POST REQUEST");
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    console.log(req.body);
+    var comments = JSON.parse(data);
+    // NOTE: In a real implementation, we would likely rely on a database or
+    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
+    // treat Date.now() as unique-enough for our purposes.
+    var newComment = {
+      id: Date.now(),
+      author: req.body.author,
+      text: req.body.text,
+      user: req.body.user
+    };
+    comments.push(newComment);
+    fs.writeFile(ARCHIVE_COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      res.json(comments);
     });
 
 });
