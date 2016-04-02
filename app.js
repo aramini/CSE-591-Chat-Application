@@ -132,6 +132,8 @@ app.get('/api/updatearchivesummary', function(req,res){
     });
 
 
+
+
 app.post('/api/comments', function(req, res) {
   fs.readFile(COMMENTS_FILE, function(err, data) {
     console.log("GOT POST REQUEST");
@@ -255,6 +257,27 @@ io.on('connection', function(socket) {
     delete usernames[username];
   });
 });
+
+
+app.get('/api/upvoteChat',function(req,res){
+  console.log(req.query.msgid );
+  Message.update({ text: req.query.msgid }, {$inc: {votes:1}}, function (err, data) {
+    if(err)
+      res.send(err);
+    else
+      res.send(data);
+  });
+});
+
+app.get('/api/downvoteChat',function(req,res){
+ Message.update({ text: req.query.msgid }, {$inc: {votes:-1}}, function (err, data) {
+    if(err)
+      res.send(err);
+    else
+      res.send(data);
+  });
+});
+
 
 app.get('/chat', function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');

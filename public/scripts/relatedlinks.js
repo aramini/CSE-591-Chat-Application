@@ -10,7 +10,23 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 var Draggable = ReactDraggable;
+var Upvote = React.createClass({
+  handleUpvote:function(e){
+    console.log(e.target);
+    this.props.addUpvote(e.target);
+  },
+  render: function(){
+    return(
+    <span className="glyphicon glyphicon-menu-up pull-right" onClick={this.handleUpvote} aria-hidden="true"></span>
+    );
+  }
+});
+
 var Comment = React.createClass({
+  addUpvote:function(data){
+    console.log(data);
+    console.log($(data).parent().toggleClass("vote"));
+  },
   rawMarkup: function() {
     var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
     return { __html: rawMarkup };
@@ -19,11 +35,14 @@ var Comment = React.createClass({
   render: function() {
     return (
       <div className="comment list-group-item ">
-      <div className="">
-        <h4 className="commentAuthor list-group-item-heading">
-          <a href={this.props.url}>{this.props.title}</a>
+        <div className="">
+         <h4 className="commentAuthor list-group-item-heading" style={{display:'inline'}}> 
+
+          <a href={this.props.url} target="_blank">{this.props.title}</a>
+          
         </h4>
-      </div>
+        <Upvote addUpvote={this.addUpvote}/>
+       </div>
       </div>
     );
   }
@@ -97,7 +116,7 @@ var CommentList = React.createClass({
   render: function() {
     var commentNodes = this.props.data.map(function(comment) {
       return (
-        <Comment title={comment.title} url={comment.text} key={comment.id}>
+        <Comment title={comment.title} url={comment.url} key={comment.id}>
 
         </Comment>
       );

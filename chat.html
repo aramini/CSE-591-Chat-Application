@@ -1,66 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Room 1</title>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script> <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> <![endif]-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/base.css" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
-</head>
-
-<body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand">Expert Chat Room</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"></div>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-8">
-                <div class="row ">
-                    <div class="col-lg-12 col-md-12 well">
-                    <span data-toggle="tooltip" data-placement="top" title="Shows expert details">
-                        <div id="detail" class="col-md-8"></div>
-                    </span>
-                    <span class="pull-right" data-toggle="tooltip" data-placement="top" title="Click to show relevant links to the chat">
-                        <div id='trigger' class="btn btn-success pull-right ">Get Related Content</div>
-                    </span>
-                    <button id='saveChat' class=" btn btn-primary" data-toggle="modal" data-target="#myModalChat">Save Chat</button>
-                 <!-- <div id='saveChat' class="btn btn-success pull-right ">Save Chat</div> -->
-              
-                    </div>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Room 1</title>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script> <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> <![endif]-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/base.css" crossorigin="anonymous">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Expert Chat Room</a>
                 </div>
-                <form class="form-horizontal">
-                    <div id="chat" class="well" style="height:400px; overflow-y:auto;"></div>
-                    <input type="text" class="form-control" id="reply-box" placeholder="Enter your text here"></input>
-                    <button class="btn btn-default pull-right" type="button" id="send">Send</button>
-                </form>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"></div>
             </div>
-            <div class="col-xs-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading" data-toggle="tooltip" data-placement="top" title="Participants list">Participants</div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="row ">
+                        <div class="col-lg-12 col-md-12 well">
+                            <span data-toggle="tooltip" data-placement="top" title="Shows expert details">
+                                <div id="detail" class="col-md-8"></div>
+                            </span>
+                            <span class="pull-right" data-toggle="tooltip" data-placement="top" title="Click to show relevant links to the chat">
+                                <div id='trigger' class="btn btn-success pull-right ">Get Related Content</div>
+                            </span>
+                            <button id='saveChat' class=" btn btn-primary" data-toggle="modal" data-target="#myModalChat">Save Chat</button>
+                            <!-- <div id='saveChat' class="btn btn-success pull-right ">Save Chat</div> -->
+                            
+                        </div>
+                    </div>
+                    <form class="form-horizontal">
+                        <div id="chat" class="well" style="height:400px; overflow-y:auto;"></div>
+                        <input type="text" class="form-control" id="reply-box" placeholder="Enter your text here"></input>
+                        <button class="btn btn-default pull-right" type="button" id="send">Send</button>
+                    </form>
+                </div>
+                <div class="col-xs-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" data-toggle="tooltip" data-placement="top" title="Participants list">Participants</div>
                     <ul class="list-group" id="list-participants" style="height:200px; overflow-y:scroll;"></ul>
                 </div>
                 <div class="panel panel-primary">
@@ -68,169 +66,193 @@
                     <div class="panel-body" id="summarytext"></div>
                     <div class="panel-footer" style="text-align:right">
                         <span data-toggle="tooltip" data-placement="top" title="Edit summary here">
-
-              <button class=" btn btn-primary" data-toggle="modal" data-target="#myModal">Edit</button>
-            </span>
+                            <button class=" btn btn-primary" data-toggle="modal" data-target="#myModal">Edit</button>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    <!-- modal -->
-    <div class="modal" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&close;</button>-->
-                    <h4 class="modal-title">Enter Summay here</h4>
-                </div>
-                <div class="modal-body">
-                    <textarea class="form-control" rows="8" id="summary"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-summary">Save changes</button>
-                </div>
+</div>
+<!-- modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&close;</button>-->
+                <h4 class="modal-title">Enter Summay here</h4>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" rows="8" id="summary"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-summary">Save changes</button>
             </div>
         </div>
     </div>
-    <div class="modal" id="myModalChat">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&close;</button>-->
-                    <h4 class="modal-title">Save as</h4>
-                </div>
-                <div class="modal-body">
-                    <textarea class="form-control" rows="3" id="saveName"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="chatSave">Save</button>
-                </div>
+</div>
+<div class="modal" id="myModalChat">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&close;</button>-->
+                <h4 class="modal-title">Save as</h4>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" rows="3" id="saveName"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="chatSave">Save</button>
             </div>
         </div>
     </div>
-    <div id="slider" className="container">
-        <div id="commentsContent" style="display:none;" class="panel"></div>
-    </div>
-    <script src="scripts/react-draggable.min.js"></script>
-    <script type="text/babel" src="scripts/relatedlinks.js"></script>
-    <script>
-    $('#myModal').on('show.bs.modal', function(event) {
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var summary = $('#summarytext').text();
-        var modal = $(this)
-        console.log(summary);
+</div>
+<div id="slider" className="container">
+    <div id="commentsContent" style="display:none;" class="panel"></div>
+</div>
+<script src="scripts/react-draggable.min.js"></script>
+<script type="text/babel" src="scripts/relatedlinks.js"></script>
+<script>
+$('#myModal').on('show.bs.modal', function(event) {
+// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+var summary = $('#summarytext').text();
+var modal = $(this)
+console.log(summary);
+//modal.find('.modal-title').text('New message to ' + recipient)
+modal.find('#summary').text(summary);
+})
+$("#trigger").click(function() {
+$("#commentsContent").toggle();
+console.log("hello");
+$("#commentsContent").css({
+top: "100px"
+});
+style = "transform: translate(50px,100px); position: relative;  display:none;"
+});
+$("#chatSave").click(function() {
+$.ajax({
+type: "GET",
+url: "api/saveChat",
+data: "var1=data1&saveName="+$("#saveName").val(),
+success: function(msg) {
+}
+});
+});
+</script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var socket = io.connect('http://localhost:3000');
+var name=localStorage.getItem("user");
+socket.on('connect', function() {
+// call the server-side function 'adduser' and send one parameter (value of prompt)
+socket.emit('adduser', name);
+});
+socket.on('enteruser', function(username) {
+console.log("am here");
+console.log(username);
+if (username != null) {
+//$('#list-participants').append('<li class="list-group-item">' + username + '</li>');
+$("#list-participants").empty();
+$.each(username, function(key, value) {
+$('#list-participants').append('<li class="list-group-item">' + key + '</li>');
+});
+}
+});
+socket.on('deleteuser', function(username) {
+$('li:contains(' + username + ')').remove();
+});
+socket.on('updatechat', function(username, data) {
+if (username.match(/Expert/)) {
+$('#chat').append('<div class="panel" style="color:blue;"> <b>' + username + '</b> : ' + data + '<div class="badge">2</div></div>');
+} else {
+$('#chat').append('<div id="'+data+'" onclick="clickMessage(this);" class="panel"><b>' + username + '</b> : ' + data + '<span  class="glyphicon glyphicon-ok pull-right votechat" aria-hidden="true"></span></div>');
+}
+});
+socket.on('clearchat', function() {
+$('#chat').text("");
+});
+socket.on('summary', function(data) {
+$('#summarytext').text(data);
+});
+$(function() {
+$('#send').click(function() {
+var message = $('#reply-box').val();
+$('#reply-box').val('');
+$('#reply-box').focus();
+socket.emit('sendchat', message);
+});
+$('#reply-box').keypress(function(e) {
+if (e.keyCode == 13) {
+$(this).blur();
+$('#send').click();
+return false;
+}
+});
+$('#save-summary').click(function() {
+var editedsummary = $('#summary').val();
+$('#summarytext').text(editedsummary);
+socket.emit('savesummary', editedsummary);
+});
+});
+</script>
+<script>
+$(document).ready(function() {
+$('[data-toggle="tooltip"]').tooltip();
+var l = localStorage.getItem("name");
+var t = localStorage.getItem("time");
+$("#detail").text("");
+$("#detail").append('<b>ExpertName:</b>' + l + '&nbsp;<b>Timings:</b>' + t + '</br>');
+});
+$(document).on('click', '.saveComment', function(e) {
+console.log("got a click");
+e.preventDefault();
+});
+$(document).on('click', '#votechat', function(e) {
+console.log("got a click");
+$('#message').toggleClass("vote");
+if($('#message').hasClass("vote"))   {
+console.log("added");
+}else{
+$.ajax({
+type: "GET",
+url: "api/upvoteChat",
+data: "msg=data1&saveName="+$("#saveName").val(),
+success: function(msg) {
+}
+});
+}
+});
 
-        //modal.find('.modal-title').text('New message to ' + recipient)
-        modal.find('#summary').text(summary);
-    })
-
-
-    $("#trigger").click(function() {
-        $("#commentsContent").toggle();
-        console.log("hello");
-        $("#commentsContent").css({
-            top: "100px"
-        });
-        style = "transform: translate(50px,100px); position: relative;  display:none;"
-    });
-
-    $("#chatSave").click(function() {
+function clickMessage(item){
+    console.log("clickedMessage");
+    console.log(item.id);
+    $(item).toggleClass("markvoted");
+    if($(item).hasClass("markvoted"))   {
+        console.log("added");
         $.ajax({
-            type: "GET",
-            url: "api/saveChat",
-            data: "var1=data1&saveName="+$("#saveName").val(),
-            success: function(msg) {
+        type: "GET",
+        url: "api/upvoteChat",
+        data: "msgid="+$(item).attr("id"),
+        success: function(msg) {
             }
         });
-
-    });
-    </script>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-    var socket = io.connect('http://localhost:3000');
-    var name=localStorage.getItem("user");
-    socket.on('connect', function() {
-        // call the server-side function 'adduser' and send one parameter (value of prompt)
-        socket.emit('adduser', name);
-    });
-    socket.on('enteruser', function(username) {
-        console.log("am here");
-        console.log(username);
-        if (username != null) {
-
-            //$('#list-participants').append('<li class="list-group-item">' + username + '</li>');
-            $("#list-participants").empty();
-            $.each(username, function(key, value) {
-                $('#list-participants').append('<li class="list-group-item">' + key + '</li>');
-            });
-        }
-    });
-    socket.on('deleteuser', function(username) {
-        $('li:contains(' + username + ')').remove();
-    });
-    socket.on('updatechat', function(username, data) {
-        if (username.match(/Expert/)) {
-            $('#chat').append('<div class="panel" style="color:blue;"> <b>' + username + '</b> : ' + data + '<div class="badge">2</div></div>');
-        } else {
-            $('#chat').append('<div class="panel"><b>' + username + '</b> : ' + data + '<span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span></div>');
-        }
-    });
-    socket.on('clearchat', function() {
-
-        $('#chat').text("");
-    });
-    socket.on('summary', function(data) {
-        $('#summarytext').text(data);
-    });
-    $(function() {
-        $('#send').click(function() {
-
-            var message = $('#reply-box').val();
-
-            $('#reply-box').val('');
-            $('#reply-box').focus();
-            socket.emit('sendchat', message);
-        });
-        $('#reply-box').keypress(function(e) {
-            if (e.keyCode == 13) {
-                $(this).blur();
-                $('#send').click();
-                return false;
+    }else{
+        $.ajax({
+        type: "GET",
+        url: "api/downvoteChat",
+        data: "msgid="+$(item).attr("id"),
+        success: function(msg) {
             }
         });
-        $('#save-summary').click(function() {
-            var editedsummary = $('#summary').val();
-            $('#summarytext').text(editedsummary);
-            socket.emit('savesummary', editedsummary);
-        });
-
-    });
-    </script>
-    <script>
-    $(document).ready(function() {
-        $('[data-toggle="tooltip"]').tooltip();
-        var l = localStorage.getItem("name");
-        var t = localStorage.getItem("time");
-        $("#detail").text("");
-        $("#detail").append('<b>ExpertName:</b>' + l + '&nbsp;<b>Timings:</b>' + t + '</br>');
-
-    });
-
-    $(document).on('click', '.saveComment', function(e) {
-        console.log("got a click");
-        e.preventDefault();
-
-    });
-    </script>
+    }
+}
+</script>
 </body>
-
 </html>

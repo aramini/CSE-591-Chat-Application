@@ -208,6 +208,7 @@ var App = React.createClass({
     comment.id = Date.now();
     var newComments = comments.concat([comment]);
     this.setState({archivecomments: newComments});
+    this.setState({iarchivecomments: newComments});
     $.ajax({
       url: "/api/archivecomments",
       dataType: 'json',

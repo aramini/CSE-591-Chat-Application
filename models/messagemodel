@@ -7,7 +7,8 @@ var messageSchema = mongoose.Schema({
 	text : String,
 	room : String,
 	category : String,
-	timestamp : String
+	timestamp : String,
+	votes: Number
 });
  
 module.exports = mongoose.model('Message',messageSchema); 
