@@ -31,7 +31,7 @@ var Comment = React.createClass({
   render: function() {
     return (
       <div className="comment" >
-        <div className="well" style={{padding:'10', margin:'2'}}>
+        <div style={{padding:'9',margin:'2'}}>
           <h4 style={{display:'inline'}} className="commentAuthor text-primary">
             {this.props.author} {this.props.name}: 
            </h4>
@@ -51,7 +51,6 @@ var ArchiveBox = React.createClass({
   render: function(){
     return(
       <div>
-        <h1>Archives List</h1>
         <ArchiveList archives={this.props.archives} />
       </div>
       )
@@ -91,6 +90,7 @@ var ArchiveList = React.createClass({
                 <th>Date</th>
                 <th>Title</th>
                 <th>Summary</th>
+                <th>Chat Archive</th>
               </tr>
             </thead>
             <tbody>
@@ -123,37 +123,24 @@ var CommentForm = React.createClass({
   getInitialState: function() {
     return {author: '', text: '',user:localStorage.getItem("user")};
   },
-  handleAuthorChange: function(e) {
+  /**handleAuthorChange: function(e) {
     this.setState({author: e.target.value});
-  },
+  },**/
   handleTextChange: function(e) {
     this.setState({text: e.target.value});
   },
   handleSubmit: function(e) {
     e.preventDefault();
-    var author = this.state.author.trim();
+    //var author = this.state.author.trim();
     var text = this.state.text.trim();
-    console.log(text +"   "+author+" "+localStorage.getItem("user"));
-    if (!text || !author) {
-      return;
-    }
-    this.props.onCommentSubmit({author: author, text: text,user: localStorage.getItem("user")});
-    this.setState({author: '', text: '',user:''});
+    console.log(text +"   "+localStorage.getItem("user"));
+    this.props.onCommentSubmit({text: text,user: localStorage.getItem("user")});
+  this.setState({text: '',user:''});
   },
   render: function() {
     return (
       <div className="container">
       <form className="commentForm form-horizontal" onSubmit={this.handleSubmit}>
-      <div className="form-group">          
-          <div className="col-sm-10">
-          <input type="text" className="form-control" id="exampleName" 
-             placeholder="Title"                
-             value={this.state.author}
-             onChange={this.handleAuthorChange}
-        />
-
-        </div>
-      </div>
       <div className="form-group">           
            <div className="col-sm-10">
            <input type="text" className="form-control" id="exampletext" 
@@ -255,7 +242,14 @@ var App = React.createClass({
   render:function(){
     return (
     <div className="container">
-      <input type="text" className="form-control form" placeholder="Search for..." onChange={this.filterList}/>
+      <div className="row">
+      <div className="col-sm-8">
+          <h2>Archives List</h2>
+      </div>
+      <div className="col-sm-4">
+          <input type="text" className="form-control" placeholder="Search for..." onChange={this.filterList}/>
+      </div>
+      </div>
       <ArchiveBox archives={this.state.archives} filter={this.filterList}/>
       <CommentBox url="/api/archivecomments" filter={this.filterList} pollInterval={2000} handleCommentSubmit={this.handleCommentSubmit} data={this.state.archivecomments}/>
     </div>
