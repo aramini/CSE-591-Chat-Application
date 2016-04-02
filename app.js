@@ -328,6 +328,7 @@ app.post('/api/archivecomments', function(req, res) {
       id: Date.now(),
       author: req.body.author,
       text: req.body.text,
+      user: req.body.user
     };
     comments.push(newComment);
     fs.writeFile(ARCHIVE_COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {

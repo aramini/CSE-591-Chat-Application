@@ -33,7 +33,7 @@ var Comment = React.createClass({
       <div className="comment" >
         <div className="well" style={{padding:'10', margin:'2'}}>
           <h4 style={{display:'inline'}} className="commentAuthor text-primary">
-            {this.props.author} : 
+            {this.props.author} {this.props.name}: 
            </h4>
            <h4 style={{display:'inline'}} className="text-muted"> 
             &nbsp;{this.props.children}
@@ -106,7 +106,7 @@ var CommentList = React.createClass({
   render: function() {
     var commentNodes = this.props.data.map(function(comment) {
       return (
-        <Comment author={comment.author} key={comment.id}>
+        <Comment author={comment.author} key={comment.id} name={comment.user}>
           {comment.text}
         </Comment>
       );
@@ -121,7 +121,7 @@ var CommentList = React.createClass({
 
 var CommentForm = React.createClass({
   getInitialState: function() {
-    return {author: '', text: ''};
+    return {author: '', text: '',user:localStorage.getItem("name")};
   },
   handleAuthorChange: function(e) {
     this.setState({author: e.target.value});
@@ -133,12 +133,12 @@ var CommentForm = React.createClass({
     e.preventDefault();
     var author = this.state.author.trim();
     var text = this.state.text.trim();
-    console.log(text +"   "+author);
+    console.log(text +"   "+author+" "+localStorage.getItem("name"));
     if (!text || !author) {
       return;
     }
-    this.props.onCommentSubmit({author: author, text: text});
-    this.setState({author: '', text: ''});
+    this.props.onCommentSubmit({author: author, text: text,user: localStorage.getItem("name")});
+    this.setState({author: '', text: '',user:''});
   },
   render: function() {
     return (
@@ -147,7 +147,7 @@ var CommentForm = React.createClass({
       <div className="form-group">          
           <div className="col-sm-10">
           <input type="text" className="form-control" id="exampleName" 
-             placeholder="Your Name"                
+             placeholder="Title"                
              value={this.state.author}
              onChange={this.handleAuthorChange}
         />
