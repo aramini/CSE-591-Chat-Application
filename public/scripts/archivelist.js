@@ -11,12 +11,16 @@
  */
 var Archive = React.createClass({
   render:function(){
+    var a = this.props.title;
+    console.log(a);
+    var url = '/archive?title='+a+'&date='+this.props.created;
+    console.log(url);
     return (
       <tr>
             <td>{this.props.created}</td>
             <td>{this.props.title}</td>
             <td>{this.props.summary}</td>
-            <td><a href="/archive">Show Chat</a></td>
+            <td><a href={url}>Show Chat</a></td>
       </tr>
 
       )

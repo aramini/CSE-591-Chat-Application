@@ -48,16 +48,56 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
+
+
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+
     $(document).ready(function() {
+        var titl = getUrlParameter('title');
+        var dat = getUrlParameter('date');
         $.ajax({
             type: "GET",
-            url: "api/updatearchivechat",
+            url: "api/updatearchivechat?title="+titl+"&date="+dat,
             success: function(msg) {
                 var messages = JSON.parse(msg);
 
                 messages.forEach(function(m) {
+                    if(m.votes>6)
                     if (m.user.match(/Expert/)) {
-                        $('#archiveChat').append('<div class="panel" style="color:blue;"> <b>' + m.user + '</b> : ' + m.text + '</div>');
+                        $('#archiveChat').append('<div class="panel" style="color:blue;background-color:#65CA06;"> <b>' + m.user + '</b> : ' + m.text + '</div>');
+                    } else {
+                        $('#archiveChat').append('<div class="panel" style="background-color:#65CA06;"><b>' + m.user + '</b> : ' + m.text + '<span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span></div>');
+                    }
+                    else if(m.votes>3)
+                        if (m.user.match(/Expert/)) {
+                        $('#archiveChat').append('<div class="panel" style="color:blue;background-color:#6CFC3A;"> <b>' + m.user + '</b> : ' + m.text + '</div>');
+                    } else {
+                        $('#archiveChat').append('<div class="panel" style="background-color:#6CFC3A;"><b>' + m.user + '</b> : ' + m.text + '<span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span></div>');
+                    }
+                    else if(m.votes>0)
+                        if (m.user.match(/Expert/)) {
+                        $('#archiveChat').append('<div class="panel" style="color:blue;background-color:#8AFEBC;"> <b>' + m.user + '</b> : ' + m.text + '</div>');
+                    } else {
+                        $('#archiveChat').append('<div class="panel" style="background-color:#8AFEBC;"><b>' + m.user + '</b> : ' + m.text + '<span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span></div>');
+                    }
+                    else
+                        if (m.user.match(/Expert/)) {
+                        $('#archiveChat').append('<div class="panel" style="color:blue"> <b>' + m.user + '</b> : ' + m.text + '</div>');
                     } else {
                         $('#archiveChat').append('<div class="panel"><b>' + m.user + '</b> : ' + m.text + '<span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span></div>');
                     }
