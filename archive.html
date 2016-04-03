@@ -108,6 +108,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
             type: "GET",
             url: "api/updatearchivelinks",
             success: function(msg) {
+                console.log(msg);
                 $.each(JSON.parse(msg), function(err, obj) {
                     $('#archiveLinks').append('<a class="panel" href=' + obj.url + '>' + obj.title + '</a></br>');
                 });

@@ -88,6 +88,12 @@ var CommentBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+
+    $.ajax({
+                type: "GET",
+                url: "api/points?user="+localStorage.getItem("user"),
+                success: function(msg) {}
+            });
   },
   getInitialState: function() {
     return {data: []};

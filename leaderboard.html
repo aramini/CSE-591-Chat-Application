@@ -15,7 +15,7 @@
 <body>
         <div class="container">
                 <h2>Leaderboard</h2>
-                <table class="table table-striped">
+                <table class="table table-striped" id="leaderboard">
                         <thead>
                                 <th>Name</th>
                                 <th>Points</th>
@@ -36,9 +36,10 @@
             url: "api/getpointslist",
             success: function(msg) {
                 console.log(msg);
-                //$.each(JSON.parse(msg), function(err, obj) {
-                  //  $('#archiveLinks').append('<a class="panel" href=' + obj.url + '>' + obj.title + '</a></br>');
-                //});
+                $.each(JSON.parse(msg), function(err, obj) {
+                    console.log(msg.user);
+                    $('#leaderboard').append('<tbody><td>' + obj.user+'</td><td>'+obj.points + '</td></tbody>');
+                });
 
             }
         });

@@ -301,9 +301,8 @@ app.get('/api/upvoteChat', function(req, res) {
     });
 });
 app.get('/api/getpointslist',function(req,res){
-    Point.find(function(data){
-        console.log(data[0].user);
-        res.json(data);
+    Point.find().sort({'points':'desc'}).exec(function(err,data){
+        res.json(JSON.stringify(data));
     });
 });
 
