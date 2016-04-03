@@ -1,0 +1,10 @@
+var mongoose = require('mongoose');
+
+var Schema = mongoose.Schema;
+
+var pointsSchema = mongoose.Schema({
+	user : String,
+	points: Number
+});
+ 
+module.exports = mongoose.model('Point',pointsSchema); 

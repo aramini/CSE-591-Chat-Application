@@ -13,6 +13,7 @@ var path = require('path');
 var Message = require('./models/messagemodel');
 var Room = require('./models/roommodel');
 var Archive = require('./models/archivemodel');
+var Point = require('./models/pointmodel');
 
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
 var ARCHIVE_COMMENTS_FILE = path.join(__dirname, 'archivecomments.json');
@@ -141,6 +142,27 @@ app.get('/api/updatearchivesummary', function(req, res) {
     });
 });
 
+
+app.get('/api/points',function(req,res){
+  Point.count({user:req.query.user}, function(err,count){
+    if(count==0){
+      var a = new Point({
+        user : req.query.user,
+      points : 10
+      });
+      a.save(function(err){
+        if(err) console.log(err);
+        else console.log("added user to points");
+      });
+    }
+  });
+  Point.update({ user: req.query.user }, { $inc: { points: 10 } }, function(err, data) {
+        if (err)
+            res.send(err);
+        else
+            res.send(data);
+    });
+});
 
 
 
@@ -349,5 +371,7 @@ app.post('/api/archivecomments', function(req, res) {
       }
       res.json(comments);
     });
+
+});
 
 });
