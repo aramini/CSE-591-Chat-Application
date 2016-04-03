@@ -307,6 +307,10 @@ app.get('/archivelist', function(req, res) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.sendFile(path.join(__dirname + '/archivelist.html'));
 });
+app.get('/leader', function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.sendFile(path.join(__dirname + '/leaderboard.html'));
+});
 
 
 app.get('/api/archivecomments', function(req, res) {
