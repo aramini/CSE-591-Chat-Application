@@ -300,6 +300,12 @@ app.get('/api/upvoteChat', function(req, res) {
             res.send(data);
     });
 });
+app.get('/api/getpointslist',function(req,res){
+    Point.find(function(data){
+        console.log(data[0].user);
+        res.json(data);
+    });
+});
 
 app.get('/api/downvoteChat', function(req, res) {
     Message.update({ text: req.query.msgid }, { $inc: { votes: -1 } }, function(err, data) {
