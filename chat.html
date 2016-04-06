@@ -176,11 +176,15 @@
     socket.on('deleteuser', function(username) {
         $('li:contains(' + username + ')').remove();
     });
-    socket.on('updatechat', function(username, data) {
+    socket.on('updatechat', function(username, data, votes) {
         if (username.match(/Expert/)) {
-            $('#chat').append('<div class="panel" style="color:blue;" onclick="clickMessage(this);"> <b>' + username + '</b> : ' + data + '<span  class="glyphicon glyphicon-ok pull-right votechat" aria-hidden="true"></span></div>');
+            $('#chat').append('<div class="panel" id="' + data + '" style="color:blue;" onclick="clickMessage(this);"> <b>' + username + '</b> : ' + data + '<span  class="glyphicon glyphicon-ok pull-right votechat" aria-hidden="true"></span></div>');
         } else {
             $('#chat').append('<div id="' + data + '" onclick="clickMessage(this);" class="panel"><b>' + username + '</b> : ' + data + '<span  class="glyphicon glyphicon-ok pull-right votechat" aria-hidden="true"></span></div>');
+        }
+        if(votes>0){
+            console.log("votes:"+votes);
+            $('#'+data).addClass('markvoted');
         }
     });
     socket.on('clearchat', function() {

@@ -256,7 +256,7 @@ io.on('connection', function(socket) {
             else {
                 io.sockets.emit('clearchat');
                 data.forEach(function(mes) {
-                    io.sockets.emit('updatechat', mes.user, mes.text);
+                    io.sockets.emit('updatechat', mes.user, mes.text,mes.votes);
                 });
             }
         })
@@ -267,13 +267,14 @@ io.on('connection', function(socket) {
     socket.on('sendchat', function(data) {
         var message = new Message({
             user: socket.username,
-            text: data
+            text: data,
+            votes:0
         });
         message.save(function(err) {
             if (err) console.log(err);
             else console.log("saved");
         });
-        io.sockets.emit('updatechat', socket.username, data);
+        io.sockets.emit('updatechat', socket.username, data,0);
     });
 
 
