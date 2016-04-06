@@ -106,18 +106,18 @@ var getUrlParameter = function getUrlParameter(sParam) {
         });
         $.ajax({
             type: "GET",
-            url: "api/updatearchivelinks",
+            url: "api/updatearchivelinks?title="+titl+"&date="+dat,
             success: function(msg) {
                 console.log(msg);
                 $.each(JSON.parse(msg), function(err, obj) {
-                    $('#archiveLinks').append('<a class="panel" href=' + obj.url + '>' + obj.title + '</a></br>');
+                    $('#archiveLinks').append('<a class="panel" href=' + obj.url + ' target="_blank">' + obj.title + '</a></br>');
                 });
 
             }
         });
         $.ajax({
             type: "GET",
-            url: "api/updatearchivesummary",
+            url: "api/updatearchivesummary?title="+titl+"&date="+dat,
             success: function(msg) {
 
                     $('#summarytext').append(msg);

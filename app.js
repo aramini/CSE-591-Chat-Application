@@ -125,7 +125,7 @@ app.get('/api/updatearchivechat', function(req, res) {
 });
 
 app.get('/api/updatearchivelinks', function(req, res) {
-    Archive.find(function(err, data) {
+    Archive.find({ title: req.query.title },function(err, data) {
         if (err) console.log(err);
         else {
             res.json(data[0].links);
@@ -134,7 +134,7 @@ app.get('/api/updatearchivelinks', function(req, res) {
 });
 
 app.get('/api/updatearchivesummary', function(req, res) {
-    Archive.find(function(err, data) {
+    Archive.find({ title: req.query.title },function(err, data) {
         if (err) console.log(err);
         else {
             res.json(data[0].summary);
