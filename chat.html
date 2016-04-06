@@ -30,8 +30,14 @@
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <div class="navbar-header">
+            <div class="navbar-header col-md-12">
+                
+                
                 <a class="navbar-brand">Expert Chat Room</a>
+            
+                <h1><span class="label label-default pull-right" id="point-label"></h1>
+          
+        </div>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"></div>
         </div>
@@ -208,11 +214,36 @@
                 success: function(msg) {}
             });
 
+            $.ajax({
+                type: "GET",
+                url: "api/getpoints?user="+name,
+                success: function(msg) {
+                    $("#point-label").text(msg);
+                }
+            });
+
         });
     });
     </script>
     <script>
     $(document).ready(function() {
+        $.ajax({
+                type: "GET",
+                url: "api/getpoints?user="+name,
+                success: function(msg) {
+                    $("#point-label").text(msg);
+
+                    var audio = {};
+        audio["walk"] = new Audio();
+        audio["walk"].src = "C:/Users/Kavitha/Downloads/shooting_star-Mike_Koenig-1132888100.wav"
+        audio["walk"].addEventListener('load', function () {
+            audio["walk"].play();
+        });
+
+                }
+            });
+
+
         $('[data-toggle="tooltip"]').tooltip();
         var l = localStorage.getItem("name");
         var t = localStorage.getItem("time");

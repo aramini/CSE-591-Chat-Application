@@ -164,7 +164,16 @@ app.get('/api/points',function(req,res){
     });
 });
 
+app.get('/api/getpoints',function(req,res){
+    Point.find({user:req.query.user},function(err,data){
+        if(data.length==0){
+            res.json(0);
+        }
+        else
+        res.json(data[0].points);
 
+    });
+});
 
 app.post('/api/comments', function(req, res) {
     fs.readFile(COMMENTS_FILE, function(err, data) {

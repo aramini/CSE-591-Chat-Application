@@ -94,6 +94,13 @@ var CommentBox = React.createClass({
                 url: "api/points?user="+localStorage.getItem("user"),
                 success: function(msg) {}
             });
+    $.ajax({
+                type: "GET",
+                url: "api/getpoints?user="+name,
+                success: function(msg) {
+                    $("#point-label").text(msg);
+                }
+            });
   },
   getInitialState: function() {
     return {data: []};
