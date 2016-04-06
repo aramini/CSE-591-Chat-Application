@@ -63,13 +63,18 @@
         <script>
 
         $(document).ready(function() {
-             $.ajax({
-                type: "GET",
-                url: "api/getpoints?user="+localStorage.getItem("user"),
-                success: function(msg) {
-                    $("#point-label").text(msg);
+             if(localStorage.getItem("user").match(/Expert/)){
+                $("#point-label").hide();
+             }
+             else{
+                $.ajax({
+                    type: "GET",
+                    url: "api/getpoints?user="+localStorage.getItem("user"),
+                    success: function(msg) {
+                        $("#point-label").text(msg);
+                    }
+                 });
                 }
-            });
         
         });
 

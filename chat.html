@@ -227,6 +227,12 @@
     </script>
     <script>
     $(document).ready(function() {
+        if(localStorage.getItem("user").match(/Expert/)){
+                $("#point-label").hide();
+                $("#saveChat").show();
+             }
+             else{
+                $("#saveChat").hide();
         $.ajax({
                 type: "GET",
                 url: "api/getpoints?user="+name,
@@ -242,6 +248,7 @@
 
                 }
             });
+    }
 
 
         $('[data-toggle="tooltip"]').tooltip();
