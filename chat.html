@@ -178,7 +178,7 @@
     });
     socket.on('updatechat', function(username, data) {
         if (username.match(/Expert/)) {
-            $('#chat').append('<div class="panel" style="color:blue;"> <b>' + username + '</b> : ' + data + '<div class="badge">2</div></div>');
+            $('#chat').append('<div class="panel" style="color:blue;" onclick="clickMessage(this);"> <b>' + username + '</b> : ' + data + '<span  class="glyphicon glyphicon-ok pull-right votechat" aria-hidden="true"></span></div>');
         } else {
             $('#chat').append('<div id="' + data + '" onclick="clickMessage(this);" class="panel"><b>' + username + '</b> : ' + data + '<span  class="glyphicon glyphicon-ok pull-right votechat" aria-hidden="true"></span></div>');
         }
