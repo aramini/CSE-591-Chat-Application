@@ -35,7 +35,7 @@
                 
                 <a class="navbar-brand">Expert Chat Room</a>
             
-                <h1><span class="label label-default pull-right" id="point-label"></h1>
+                <h1><span class="label label-default pull-right" id="point-label" data-toggle="tooltip" data-placement="bottom" title="Earned Points"></h1>
           
         </div>
             </div>
@@ -157,7 +157,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
     var socket = io.connect('http://localhost:3000');
-    var name = localStorage.getItem("user");
+    var name = sessionStorage.getItem("user");
     socket.on('connect', function() {
         // call the server-side function 'adduser' and send one parameter (value of prompt)
         socket.emit('adduser', name);
@@ -231,7 +231,7 @@
     </script>
     <script>
     $(document).ready(function() {
-        if(localStorage.getItem("user").match(/Expert/)){
+        if(sessionStorage.getItem("user").match(/Expert/)){
                 $("#point-label").hide();
                 $("#saveChat").show();
              }

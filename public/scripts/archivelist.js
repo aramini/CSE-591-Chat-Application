@@ -125,7 +125,7 @@ var CommentList = React.createClass({
 
 var CommentForm = React.createClass({
   getInitialState: function() {
-    return {author: '', text: '',user:localStorage.getItem("user")};
+    return {author: '', text: '',user:sessionStorage.getItem("user")};
   },
   /**handleAuthorChange: function(e) {
     this.setState({author: e.target.value});
@@ -137,8 +137,8 @@ var CommentForm = React.createClass({
     e.preventDefault();
     //var author = this.state.author.trim();
     var text = this.state.text.trim();
-    console.log(text +"   "+localStorage.getItem("user"));
-    this.props.onCommentSubmit({text: text,user: localStorage.getItem("user")});
+    console.log(text +"   "+sessionStorage.getItem("user"));
+    this.props.onCommentSubmit({text: text,user: sessionStorage.getItem("user")});
   this.setState({text: '',user:''});
   },
   render: function() {
@@ -216,7 +216,7 @@ var App = React.createClass({
 
      $.ajax({
                 type: "GET",
-                url: "api/points?user="+localStorage.getItem("user"),
+                url: "api/points?user="+sessionStorage.getItem("user"),
                 success: function(msg) {}
             });
   },

@@ -58,7 +58,8 @@
         alert("Please enter the correct password");
         }
         else
-        {   localStorage.setItem("user", user);
+        {  // localStorage.setItem("user", user);
+            sessionStorage.setItem("user",user);
         window.location.replace("/index");
         }
         });

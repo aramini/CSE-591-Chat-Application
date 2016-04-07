@@ -1,0 +1,10 @@
+var mongoose = require('mongoose');
+
+var Schema = mongoose.Schema;
+
+var archiveCommentSchema = mongoose.Schema({
+	name: String,
+	comment: String
+});
+ 
+module.exports = mongoose.model('ArchiveComments',archiveCommentSchema); 

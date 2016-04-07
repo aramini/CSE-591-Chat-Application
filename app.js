@@ -144,6 +144,7 @@ app.get('/api/updatearchivesummary', function(req, res) {
 
 
 app.get('/api/points',function(req,res){
+    if(!req.query.user.match(/Expert/)){
   Point.count({user:req.query.user}, function(err,count){
     if(count==0){
       var a = new Point({
@@ -162,6 +163,8 @@ app.get('/api/points',function(req,res){
         else
             res.send(data);
     });
+}
+res.send(0);
 });
 
 app.get('/api/getpoints',function(req,res){
