@@ -17,7 +17,16 @@ var Point = require('./models/pointmodel');
 
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
 
-var titles = [];
+//loading comments 
+var AllComments = [];
+fs.readFile(COMMENTS_FILE, function(err, data) {
+    console.log("GOT POST REQUEST");
+    if (err) {
+        console.error(err);
+        process.exit(1);
+    }
+    AllComments = JSON.parse(data);
+});
 
 var ARCHIVE_COMMENTS_FILE = path.join(__dirname, 'archivecomments.json');
 mongoose.connect('mongodb://127.0.0.1:27017/TOLC-chat', function(err) {
@@ -86,20 +95,25 @@ app.get('/api/saveChat', function(req, res) {
                         archive.created = Date.now();
                         var a = new Archive(archive);
                         a.save(function(err) {
-                            if (err) console.log(err); });
+                            if (err) console.log(err);
+                        });
                         res.json(archive);
 
                         Message.remove(function(err) {
                             if (err) console.log(err);
                         });
 
-                        Room.remove({ room: "Room1" }, function(err) {
+                        Room.remove({
+                            room: "Room1"
+                        }, function(err) {
                             if (err) console.log(err);
                         });
 
-                        
-                        fs.writeFile(COMMENTS_FILE, '[]', function(){console.log('done clearing file')});
-                           
+
+                        fs.writeFile(COMMENTS_FILE, '[]', function() {
+                            console.log('done clearing file')
+                        });
+
                     });
 
                 }
@@ -119,7 +133,9 @@ app.get('/api/archiveslist', function(req, res) {
 });
 
 app.get('/api/updatearchivechat', function(req, res) {
-    Archive.find({ title: req.query.title }, function(err, data) {
+    Archive.find({
+        title: req.query.title
+    }, function(err, data) {
         if (err) console.log(err);
         else {
             res.json(data[0].messages);
@@ -128,7 +144,9 @@ app.get('/api/updatearchivechat', function(req, res) {
 });
 
 app.get('/api/updatearchivelinks', function(req, res) {
-    Archive.find({ title: req.query.title },function(err, data) {
+    Archive.find({
+        title: req.query.title
+    }, function(err, data) {
         if (err) console.log(err);
         else {
             res.json(data[0].links);
@@ -137,7 +155,9 @@ app.get('/api/updatearchivelinks', function(req, res) {
 });
 
 app.get('/api/updatearchivesummary', function(req, res) {
-    Archive.find({ title: req.query.title },function(err, data) {
+    Archive.find({
+        title: req.query.title
+    }, function(err, data) {
         if (err) console.log(err);
         else {
             res.json(data[0].summary);
@@ -146,37 +166,46 @@ app.get('/api/updatearchivesummary', function(req, res) {
 });
 
 
-app.get('/api/points',function(req,res){
-    if(!req.query.user.match(/Expert/)){
-  Point.count({user:req.query.user}, function(err,count){
-    if(count==0){
-      var a = new Point({
-        user : req.query.user,
-      points : 10
-      });
-      a.save(function(err){
-        if(err) console.log(err);
-        else console.log("added user to points");
-      });
+app.get('/api/points', function(req, res) {
+    if (!req.query.user.match(/Expert/)) {
+        Point.count({
+            user: req.query.user
+        }, function(err, count) {
+            if (count == 0) {
+                var a = new Point({
+                    user: req.query.user,
+                    points: 10
+                });
+                a.save(function(err) {
+                    if (err) console.log(err);
+                    else console.log("added user to points");
+                });
+            }
+        });
+        Point.update({
+            user: req.query.user
+        }, {
+            $inc: {
+                points: 10
+            }
+        }, function(err, data) {
+            if (err)
+                res.send(err);
+            else
+                res.send(data);
+        });
     }
-  });
-  Point.update({ user: req.query.user }, { $inc: { points: 10 } }, function(err, data) {
-        if (err)
-            res.send(err);
-        else
-            res.send(data);
-    });
-}
-res.send(0);
+    res.send(0);
 });
 
-app.get('/api/getpoints',function(req,res){
-    Point.find({user:req.query.user},function(err,data){
-        if(data.length==0){
+app.get('/api/getpoints', function(req, res) {
+    Point.find({
+        user: req.query.user
+    }, function(err, data) {
+        if (data.length == 0) {
             res.json(0);
-        }
-        else
-        res.json(data[0].points);
+        } else
+            res.json(data[0].points);
 
     });
 });
@@ -198,6 +227,7 @@ app.post('/api/comments', function(req, res) {
             url: req.body.url,
         };
         comments.push(newComment);
+        AllComments.push(newComment);
         fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
             if (err) {
                 console.error(err);
@@ -205,6 +235,7 @@ app.post('/api/comments', function(req, res) {
             }
             res.json(comments);
         });
+
     });
 
 });
@@ -262,10 +293,10 @@ io.on('connection', function(socket) {
             else {
                 io.sockets.emit('clearchat');
                 data.forEach(function(mes) {
-                    io.sockets.emit('updatechat', mes.user, mes.text,mes.votes);
+                    io.sockets.emit('updatechat', mes.user, mes.text, mes.votes, mes.timestamp);
                 });
 
-                var botmsgs = ["hello "+username, "Welcome "+username, "Hey "+username, "hello "+username+" how are you doing?", "Hi "+username];
+                var botmsgs = ["hello " + username, "Welcome " + username, "Hey " + username, "hello " + username + " how are you doing?", "Hi " + username];
                 var botmsg = botmsgs[Math.floor(Math.random() * botmsgs.length)];
                 var msg1 = botmsg;
 
@@ -280,34 +311,54 @@ io.on('connection', function(socket) {
         var message = new Message({
             user: socket.username,
             text: data,
-            votes:0
+            timestamp: Date.now(),
+            votes: 0
         });
         message.save(function(err) {
             if (err) console.log(err);
             else console.log("saved");
         });
-        io.sockets.emit('updatechat', socket.username, data,0);
-        
-        if(data.indexOf("?") != -1){
-            data.split(" ").forEach(function(word){
+        io.sockets.emit('updatechat', socket.username, data, 0, message.timestamp);
+        var suggestions = new Set([]);
+        if (data.indexOf("?") != -1) {
+            var links = "";
+            var botmsgs = ["Here  ", "Welcome ", "Hey ", "Hi "];
+            data.split(" ").forEach(function(word) {
+                AllComments.forEach(function(comment) {
+                    if (comment.title.toLowerCase().indexOf(word) != -1) {
 
-            })
+                        if (!suggestions.has(comment)) {
+                            suggestions.add(comment)
+                            links += "<a href='" + comment.url + "'>   /" + comment.title + " </a> ";
+
+                        }
+                    }
+
+                });
+            });
+            if (links != "") {
+                var text = "I found something that might be useful: " + links;
+                sendbotchat(text);
+            }
+
         }
+
+
 
     });
 
 
-    function sendbotchat(data){
+    function sendbotchat(data) {
         var message = new Message({
             user: 'iBot',
             text: data,
-            votes:0
+            votes: 0
         });
         message.save(function(err) {
             if (err) console.log(err);
             else console.log("saved");
         });
-        io.sockets.emit('updatechat', 'iBot', data,0);
+        io.sockets.emit('updatechat', 'iBot', data, 0);
     }
 
 
@@ -336,21 +387,35 @@ io.on('connection', function(socket) {
 
 app.get('/api/upvoteChat', function(req, res) {
     console.log(req.query.msgid);
-    Message.update({ text: req.query.msgid }, { $inc: { votes: 1 } }, function(err, data) {
+    Message.update({
+        text: req.query.msgid
+    }, {
+        $inc: {
+            votes: 1
+        }
+    }, function(err, data) {
         if (err)
             res.send(err);
         else
             res.send(data);
     });
 });
-app.get('/api/getpointslist',function(req,res){
-    Point.find().sort({'points':'desc'}).exec(function(err,data){
+app.get('/api/getpointslist', function(req, res) {
+    Point.find().sort({
+        'points': 'desc'
+    }).exec(function(err, data) {
         res.json(JSON.stringify(data));
     });
 });
 
 app.get('/api/downvoteChat', function(req, res) {
-    Message.update({ text: req.query.msgid }, { $inc: { votes: -1 } }, function(err, data) {
+    Message.update({
+        text: req.query.msgid
+    }, {
+        $inc: {
+            votes: -1
+        }
+    }, function(err, data) {
         if (err)
             res.send(err);
         else
@@ -397,32 +462,32 @@ app.get('/api/archivecomments', function(req, res) {
 });
 
 app.post('/api/archivecomments', function(req, res) {
-  console.log("Got a comment to save")
-  fs.readFile(ARCHIVE_COMMENTS_FILE, function(err, data) {
-    console.log("GOT POST REQUEST");
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    console.log(req.body);
-    var comments = JSON.parse(data);
-    // NOTE: In a real implementation, we would likely rely on a database or
-    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
-    // treat Date.now() as unique-enough for our purposes.
-    var newComment = {
-      id: Date.now(),
-      author: req.body.author,
-      text: req.body.text,
-      user: req.body.user
-    };
-    comments.push(newComment);
-    fs.writeFile(ARCHIVE_COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
-      if (err) {
-        console.error(err);
-        process.exit(1);
-      }
-      res.json(comments);
-    });
+    console.log("Got a comment to save")
+    fs.readFile(ARCHIVE_COMMENTS_FILE, function(err, data) {
+        console.log("GOT POST REQUEST");
+        if (err) {
+            console.error(err);
+            process.exit(1);
+        }
+        console.log(req.body);
+        var comments = JSON.parse(data);
+        // NOTE: In a real implementation, we would likely rely on a database or
+        // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
+        // treat Date.now() as unique-enough for our purposes.
+        var newComment = {
+            id: Date.now(),
+            author: req.body.author,
+            text: req.body.text,
+            user: req.body.user
+        };
+        comments.push(newComment);
+        fs.writeFile(ARCHIVE_COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
+            if (err) {
+                console.error(err);
+                process.exit(1);
+            }
+            res.json(comments);
+        });
 
-});
+    });
 });
