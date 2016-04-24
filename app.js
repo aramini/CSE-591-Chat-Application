@@ -16,6 +16,9 @@ var Archive = require('./models/archivemodel');
 var Point = require('./models/pointmodel');
 
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
+
+var titles = [];
+
 var ARCHIVE_COMMENTS_FILE = path.join(__dirname, 'archivecomments.json');
 mongoose.connect('mongodb://127.0.0.1:27017/TOLC-chat', function(err) {
     if (err) console.log(err);
@@ -261,6 +264,12 @@ io.on('connection', function(socket) {
                 data.forEach(function(mes) {
                     io.sockets.emit('updatechat', mes.user, mes.text,mes.votes);
                 });
+
+                var botmsgs = ["hello "+username, "Welcome "+username, "Hey "+username, "hello "+username+" how are you doing?", "Hi "+username];
+                var botmsg = botmsgs[Math.floor(Math.random() * botmsgs.length)];
+                var msg1 = botmsg;
+
+                sendbotchat(msg1);
             }
         })
 
@@ -278,7 +287,28 @@ io.on('connection', function(socket) {
             else console.log("saved");
         });
         io.sockets.emit('updatechat', socket.username, data,0);
+        
+        if(data.indexOf("?") != -1){
+            data.split(" ").forEach(function(word){
+
+            })
+        }
+
     });
+
+
+    function sendbotchat(data){
+        var message = new Message({
+            user: 'iBot',
+            text: data,
+            votes:0
+        });
+        message.save(function(err) {
+            if (err) console.log(err);
+            else console.log("saved");
+        });
+        io.sockets.emit('updatechat', 'iBot', data,0);
+    }
 
 
     socket.on('savesummary', function(data) {
