@@ -184,6 +184,8 @@ var CommentForm = React.createClass({
     if (!url || !title) {
       return;
     }
+    $(".alert").removeClass("in").show();
+    $(".alert").delay(1000).addClass("in").fadeOut(10000);
     this.props.onCommentSubmit({url: url, title: title});
     this.setState({url: '', title: ''});
   },

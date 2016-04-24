@@ -29,10 +29,12 @@
 
 <body>
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header col-md-12">
-                
-                
+        <div class="container-fluid" >
+            <div class="navbar-header col-md-12"> 
+               
+                <div class="alert alert-success fade" style="position:fixed; top:0;left:0,;width:100%;">
+                    You got a point!!
+                </div>
                 <a class="navbar-brand">Expert Chat Room</a>
             
                 <h1><span class="label label-default pull-right" id="point-label" data-toggle="tooltip" data-placement="bottom" title="Earned Points"></h1>
@@ -77,6 +79,8 @@
                         </span>
                     </div>
                 </div>
+
+                
             </div>
         </div>
     </div>
@@ -87,7 +91,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&close;</button>-->
-                    <h4 class="modal-title">Enter Summay here</h4>
+                    <h4 class="modal-title">Enter Summary here</h4>
                 </div>
                 <div class="modal-body">
                     <textarea class="form-control" rows="8" id="summary"></textarea>
@@ -169,7 +173,13 @@
             //$('#list-participants').append('<li class="list-group-item">' + username + '</li>');
             $("#list-participants").empty();
             $.each(username, function(key, value) {
-                $('#list-participants').append('<li class="list-group-item">' + key + '</li>');
+                if(sessionStorage.getItem("user").match(/Expert/)){
+                $('#list-participants').append('<li class="list-group-item">' + key + '<span class="glyphicon glyphicon-asterisk pull-right" role="button" id="user-selected" aria-hidden="true"></span></li>');
+            }
+            else
+            {
+                $('#list-participants').append('<li class="list-group-item">'+key+'</li>');
+            }
             });
         }
     });
@@ -211,6 +221,9 @@
             }
         });
         $('#save-summary').click(function() {
+           
+            $(".alert").removeClass("in").show();
+            $(".alert").delay(1000).addClass("in").fadeOut(10000);
             var editedsummary = $('#summary').val();
             $('#summarytext').text(editedsummary);
             socket.emit('savesummary', editedsummary);
@@ -229,6 +242,12 @@
                 }
             });
 
+        });
+        $(document).on('click', '#user-selected', function(){ 
+            $(this).css("color", "#FF0000");
+            var listvalue = $(this).closest("li").html();
+            var listname=listvalue.substr(0, listvalue.indexOf("<"));
+            console.log(listname);
         });
     });
     </script>
