@@ -17,11 +17,12 @@ var Archive = require('./models/archivemodel');
 var Point = require('./models/pointmodel');
 
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
+var ALL_COMMENTS_FILE = path.join(__dirname, 'allcomments.json');
 
 //loading comments 
 var AllComments = [];
-fs.readFile(COMMENTS_FILE, function(err, data) {
-    console.log("GOT POST REQUEST");
+fs.readFile(ALL_COMMENTS_FILE, function(err, data) {
+    console.log("Reading all comments");
     if (err) {
         console.error(err);
         process.exit(1);
@@ -237,6 +238,13 @@ app.post('/api/comments', function(req, res) {
             res.json(comments);
         });
 
+         fs.writeFile(ALL_COMMENTS_FILE, JSON.stringify(AllComments, null, 4), function(err) {
+            if (err) {
+                console.error(err);
+                process.exit(1);
+            }
+        });
+
     });
 
 });
@@ -323,7 +331,7 @@ io.on('connection', function(socket) {
         var suggestions = new Set([]);
         if (data.indexOf("?") != -1) {
             var links = "";
-            var botmsgs = ["Here  ", "Welcome ", "Hey ", "Hi "];
+            var botlinks = ["Here are few links that might be useful ", " I found something useful  ","Try reading these links also ", "You might find these useful "];
             data.split(" ").forEach(function(word) {
                 AllComments.forEach(function(comment) {
                     if (comment.title.toLowerCase().indexOf(word) != -1) {
@@ -338,7 +346,7 @@ io.on('connection', function(socket) {
                 });
             });
             if (links != "") {
-                var text = "I found something that might be useful: " + links;
+                var text = botlinks[Math.floor(Math.random() * botlinks.length)]+ links;
                 sendbotchat(text);
             }
 

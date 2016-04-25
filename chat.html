@@ -197,7 +197,7 @@
             console.log("votes:"+votes+" "+data);
             $('#'+timestamp).addClass('markvoted');
         }
-
+        $("#chat").scrollTop($("#chat").prop('scrollHeight'));
         // $('#chat').animate({scrollTop: $('#chat')[0].scrollHeight}, 2000);
     });
     socket.on('clearchat', function() {
@@ -212,6 +212,7 @@
             $('#reply-box').val('');
             $('#reply-box').focus();
             socket.emit('sendchat', message);
+
         });
         $('#reply-box').keypress(function(e) {
             if (e.keyCode == 13) {
