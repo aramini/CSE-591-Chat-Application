@@ -63,6 +63,13 @@
         window.location.replace("/index");
         }
         });
+        $('#pwd').keypress(function(e) {
+            if (e.keyCode == 13) {
+                $(this).blur();
+                $('#login').click();
+                return false;
+            }
+        });
         </script>
     </body>
 </html>s

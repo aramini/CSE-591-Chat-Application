@@ -72,7 +72,7 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading" data-toggle="tooltip" data-placement="top" title="Summary of the Chat">Summary</div>
-                    <div class="panel-body" id="summarytext"></div>
+                    <div class="panel-body" id="summarytext" data-toggle="tooltip" data-placement="right" title="Add/Modify summary to tell what is the chat about and how is it helpful"></div>
                     <div class="panel-footer" style="text-align:right">
                         <span data-toggle="tooltip" data-placement="top" title="Edit summary here">
                             <button class=" btn btn-primary" data-toggle="modal" data-target="#myModal">Edit</button>
@@ -175,6 +175,7 @@
             $.each(username, function(key, value) {
                 if(sessionStorage.getItem("user").match(/Expert/)){
                 $('#list-participants').append('<li class="list-group-item">' + key + '<span class="glyphicon glyphicon-asterisk pull-right" role="button" id="user-selected" aria-hidden="true"></span></li>');
+
             }
             else
             {
@@ -246,6 +247,18 @@
             $(this).css("color", "#FF0000");
             var listvalue = $(this).closest("li").html();
             var listname=listvalue.substr(0, listvalue.indexOf("<"));
+             $.ajax({
+                type: "GET",
+                url: "api/points?user="+listname,
+                success: function(msg) {}
+            });
+            /**$.ajax({
+                type: "GET",
+                url: "api/getpoints?user="+name,
+                success: function(msg) {
+                    $("#point-label").text(msg);
+                }
+            });**/
             console.log(listname);
         });
     });

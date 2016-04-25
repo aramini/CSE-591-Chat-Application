@@ -8,6 +8,7 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var cors = require('cors')
 var path = require('path');
+var Set = require('collection').Set;
 
 
 var Message = require('./models/messagemodel');
