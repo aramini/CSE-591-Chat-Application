@@ -179,13 +179,15 @@ var CommentForm = React.createClass({
 
   handleSubmit: function(e) {
     e.preventDefault();
-    var title = this.state.title.trim();
+    var title = this.state.title.trim(); 
     var url = this.state.url.trim();
     if (!url || !title) {
       return;
     }
-    $(".alert").removeClass("in").show();
-    $(".alert").delay(1000).addClass("in").fadeOut(10000);
+    /**if(sessionStorage.getItem("user").match(/^(.(?!Expert))*$)/)){
+      $(".alert").removeClass("in").show();
+      $(".alert").delay(1000).addClass("in").fadeOut(10000);**/
+   
     this.props.onCommentSubmit({url: url, title: title});
     this.setState({url: '', title: ''});
   },
