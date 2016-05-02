@@ -72,7 +72,9 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading" data-toggle="tooltip" data-placement="top" title="Summary of the Chat">Summary</div>
-                    <div class="panel-body" id="summarytext" data-toggle="tooltip" data-placement="right" title="Add/Modify summary to tell what is the chat about and how is it helpful"></div>
+
+                    <div class="panel-body" id="summarytext" ></div>
+
                     <div class="panel-footer" style="text-align:right">
                         <span data-toggle="tooltip" data-placement="top" title="Edit summary here">
                             <button class=" btn btn-primary" data-toggle="modal" data-target="#myModal">Edit</button>
@@ -222,9 +224,11 @@
             }
         });
         $('#save-summary').click(function() {
-           
+
+         // if(sessionStorage.getItem("user").match(/^(.(?!Expert))*$)/)){
             $(".alert").removeClass("in").show();
             $(".alert").delay(1000).addClass("in").fadeOut(10000);
+       
             var editedsummary = $('#summary').val();
             $('#summarytext').text(editedsummary);
             socket.emit('savesummary', editedsummary);

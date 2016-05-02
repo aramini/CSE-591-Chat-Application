@@ -8,7 +8,7 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var cors = require('cors')
 var path = require('path');
-var Set = require('collection').Set;
+//var Set = require('collection').Set;
 
 
 var Message = require('./models/messagemodel');
@@ -197,7 +197,6 @@ app.get('/api/points', function(req, res) {
                 res.send(data);
         });
     }
-    res.send(0);
 });
 
 app.get('/api/getpoints', function(req, res) {

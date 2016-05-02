@@ -1,0 +1,105 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'NativeTypes' ]
+2 info using npm@2.10.1
+3 info using node@v0.12.4
+4 verbose install initial load of /home/archana/Documents/Project-TOLC/Multichat/package.json
+5 warn package.json multichat@0.0.1 No repository field.
+6 warn package.json multichat@0.0.1 No README data
+7 warn package.json multichat@0.0.1 No license field.
+8 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/body-parser/package.json
+9 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/collection/package.json
+10 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/cors/package.json
+11 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/debug/package.json
+12 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/engine.io/package.json
+13 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/express/package.json
+14 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/has-binary/package.json
+15 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/mongodb/package.json
+16 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/mongoose/package.json
+17 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/node-gyp/package.json
+18 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/socket.io/package.json
+19 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/socket.io-adapter/package.json
+20 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/socket.io-client/package.json
+21 verbose installManyTop reading scoped package data from /home/archana/Documents/Project-TOLC/Multichat/node_modules/socket.io-parser/package.json
+22 info package.json collection@0.1.6 No license field.
+23 info package.json has-binary@0.1.7 No repository field.
+24 verbose readDependencies loading dependencies from /home/archana/Documents/Project-TOLC/Multichat/package.json
+25 silly cache add args [ 'NativeTypes', null ]
+26 verbose cache add spec NativeTypes
+27 silly cache add parsed spec { raw: 'NativeTypes',
+27 silly cache add   scope: null,
+27 silly cache add   name: 'NativeTypes',
+27 silly cache add   rawSpec: '',
+27 silly cache add   spec: '*',
+27 silly cache add   type: 'range' }
+28 silly addNamed NativeTypes@*
+29 verbose addNamed "*" is a valid semver range for NativeTypes
+30 silly addNameRange { name: 'NativeTypes', range: '*', hasData: false }
+31 silly mapToRegistry name NativeTypes
+32 silly mapToRegistry using default registry
+33 silly mapToRegistry registry https://registry.npmjs.org/
+34 silly mapToRegistry uri https://registry.npmjs.org/NativeTypes
+35 verbose addNameRange registry:https://registry.npmjs.org/NativeTypes not in flight; fetching
+36 verbose request uri https://registry.npmjs.org/NativeTypes
+37 verbose request no auth needed
+38 info attempt registry request try #1 at 7:29:24 AM
+39 verbose request id 0caa96347a9f8bad
+40 http request GET https://registry.npmjs.org/NativeTypes
+41 http 404 https://registry.npmjs.org/NativeTypes
+42 verbose headers { 'content-type': 'application/json',
+42 verbose headers   'cache-control': 'max-age=0',
+42 verbose headers   'content-length': '2',
+42 verbose headers   'accept-ranges': 'bytes',
+42 verbose headers   date: 'Mon, 25 Apr 2016 14:29:25 GMT',
+42 verbose headers   via: '1.1 varnish',
+42 verbose headers   age: '0',
+42 verbose headers   connection: 'keep-alive',
+42 verbose headers   'x-served-by': 'cache-sjc3127-SJC',
+42 verbose headers   'x-cache': 'MISS',
+42 verbose headers   'x-cache-hits': '0',
+42 verbose headers   'x-timer': 'S1461594564.936667,VS0,VE88',
+42 verbose headers   vary: 'Accept-Encoding' }
+43 silly get cb [ 404,
+43 silly get   { 'content-type': 'application/json',
+43 silly get     'cache-control': 'max-age=0',
+43 silly get     'content-length': '2',
+43 silly get     'accept-ranges': 'bytes',
+43 silly get     date: 'Mon, 25 Apr 2016 14:29:25 GMT',
+43 silly get     via: '1.1 varnish',
+43 silly get     age: '0',
+43 silly get     connection: 'keep-alive',
+43 silly get     'x-served-by': 'cache-sjc3127-SJC',
+43 silly get     'x-cache': 'MISS',
+43 silly get     'x-cache-hits': '0',
+43 silly get     'x-timer': 'S1461594564.936667,VS0,VE88',
+43 silly get     vary: 'Accept-Encoding' } ]
+44 verbose stack Error: Registry returned 404 for GET on https://registry.npmjs.org/NativeTypes
+44 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:239:14)
+44 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:170:14)
+44 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:368:22)
+44 verbose stack     at Request.emit (events.js:110:17)
+44 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1219:14)
+44 verbose stack     at Request.emit (events.js:129:20)
+44 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1167:12)
+44 verbose stack     at IncomingMessage.emit (events.js:129:20)
+44 verbose stack     at _stream_readable.js:908:16
+44 verbose stack     at process._tickCallback (node.js:355:11)
+45 verbose statusCode 404
+46 verbose pkgid NativeTypes
+47 verbose cwd /home/archana/Documents/Project-TOLC/Multichat
+48 error Linux 3.16.0-48-generic
+49 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "NativeTypes"
+50 error node v0.12.4
+51 error npm  v2.10.1
+52 error code E404
+53 error 404 Registry returned 404 for GET on https://registry.npmjs.org/NativeTypes
+53 error 404
+53 error 404 'NativeTypes' is not in the npm registry.
+53 error 404 You should bug the author to publish it (or use the name yourself!)
+53 error 404 It was specified as a dependency of 'multichat'
+53 error 404
+53 error 404 Note that you can also install from a
+53 error 404 tarball, folder, http url, or git url.
+54 verbose exit [ 1, true ]
