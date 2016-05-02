@@ -30,7 +30,7 @@ fs.readFile(ALL_COMMENTS_FILE, function(err, data) {
 });
 
 var ARCHIVE_COMMENTS_FILE = path.join(__dirname, 'archivecomments.json');
-mongoose.connect('mongodb://127.0.0.1:27017/TOLC-chat', function(err) {
+mongoose.connect('mongodb://tolc_project:tolc_proj@ds011902.mlab.com:11902/kavitha_db', function(err) {
     if (err) console.log(err);
 });
 
@@ -47,7 +47,7 @@ app.use(bodyParser.urlencoded({
 app.use(function(req, res, next) {
     // Set permissive CORS header - this allows this server to be used only as
     // an API server in conjunction with something like webpack-dev-server.
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://805b01a9.ngrok.io');
 
     // Disable caching so we'll always get the latest comments.
     res.setHeader('Cache-Control', 'no-cache');
@@ -56,7 +56,7 @@ app.use(function(req, res, next) {
 
 
 app.get('/', function(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://805b01a9.ngrok.io');
     res.sendFile(path.join(__dirname + '/home.html'));
 });
 
@@ -433,25 +433,25 @@ app.get('/api/downvoteChat', function(req, res) {
 
 
 app.get('/chat', function(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://805b01a9.ngrok.io');
     res.sendFile(path.join(__dirname + '/chat.html'));
 });
 
 app.get('/archive', function(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://805b01a9.ngrok.io');
     res.sendFile(path.join(__dirname + '/archive.html'));
 });
 app.get('/index', function(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://805b01a9.ngrok.io');
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.get('/archivelist', function(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://805b01a9.ngrok.io');
     res.sendFile(path.join(__dirname + '/archivelist.html'));
 });
 app.get('/leader', function(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://805b01a9.ngrok.io');
     res.sendFile(path.join(__dirname + '/leaderboard.html'));
 });
 
